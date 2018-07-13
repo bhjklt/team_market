@@ -4,4 +4,21 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+
+  <listener>
+    <listener-class>team.market.administrator.listener.ContextListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>team.market.administrator.listener.RequestListener</listener-class>
+  </listener>
+
+  <servlet>
+    <servlet-name>TestServlet</servlet-name>
+    <servlet-class>team.market.administrator.servlet.TestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TestServlet</servlet-name>
+    <url-pattern>/test</url-pattern>
+  </servlet-mapping>
+
 </web-app>

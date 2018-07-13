@@ -6,6 +6,7 @@ import java.util.List;
 public interface BaseDao<T, PK extends Serializable> {
 
 	T find(PK pk);
+
 	List<T> findAll();
 
 	T save(T t);
