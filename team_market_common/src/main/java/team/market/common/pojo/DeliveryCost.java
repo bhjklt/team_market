@@ -9,18 +9,18 @@ public class DeliveryCost implements Serializable {
     private String id;
     private Integer sId;
     private Double deliveryCost;
-    private String from;
-    private String to;
+    private String fromTime;
+    private String toTime;
 
     public DeliveryCost() {
     }
 
-    public DeliveryCost(String id, Integer sId, Double deliveryCost, String from, String to) {
+    public DeliveryCost(String id, Integer sId, Double deliveryCost, String fromTime, String toTime) {
         this.id = id;
         this.sId = sId;
         this.deliveryCost = deliveryCost;
-        this.from = from;
-        this.to = to;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
     }
 
     public String getId() {
@@ -47,20 +47,20 @@ public class DeliveryCost implements Serializable {
         this.deliveryCost = deliveryCost;
     }
 
-    public String getFrom() {
-        return from;
+    public String getFromTime() {
+        return fromTime;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setFromTime(String fromTime) {
+        this.fromTime = fromTime;
     }
 
-    public String getTo() {
-        return to;
+    public String getToTime() {
+        return toTime;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setToTime(String toTime) {
+        this.toTime = toTime;
     }
 
 }
