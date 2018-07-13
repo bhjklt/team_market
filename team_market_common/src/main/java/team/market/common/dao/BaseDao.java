@@ -1,18 +1,17 @@
-package teamproject;
+package team.market.common.dao;
 
 import java.io.Serializable;
 import java.util.List;
 
-public interface BaseDao<T,PK extends Serializable> {
-	
-	public int add(T t);
-	
-	public int update(PK pk, T t);
+public interface BaseDao<T, PK extends Serializable> {
 
-	public int delete(PK pk);
+	T find(PK pk);
+	List<T> findAll();
+
+	T save(T t);
+
+	boolean delete(PK pk);
 	
-	public List<T> findAll();
-	
-	public T findById(PK pk);
+	boolean update(T t);
 
 }
