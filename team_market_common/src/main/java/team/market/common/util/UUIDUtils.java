@@ -5,8 +5,10 @@ import java.util.UUID;
 public class UUIDUtils {
 
     public static String get8UUID(){
-        UUID id=UUID.randomUUID();
-        String[] idd=id.toString().split("-");
-        return idd[0];
+        return UUID.randomUUID().toString().split("-")[0];
+    }
+
+    public static String getUUID(){
+        return UUID.randomUUID().toString().replace("-", "");
     }
 }
