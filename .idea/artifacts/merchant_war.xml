@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="merchant:war">
-    <output-path>$PROJECT_DIR$/merchant/target</output-path>
-    <root id="archive" name="merchant.war">
-      <element id="artifact" artifact-name="merchant:war exploded" />
-    </root>
-  </artifact>
-</component>
