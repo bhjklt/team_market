@@ -21,7 +21,7 @@ public class DBUtil {
 
     static {
         try {
-            prot.load(DBUtil.class.getClassLoader().getResourceAsStream("conf/dbconfig.properties"));
+            prot.load(DBUtil.class.getClassLoader().getResourceAsStream("dbconfig.properties"));
 
             adbConf = new DBConf(prot.getProperty("url"), prot.getProperty("ausername"), prot.getProperty("apassword"), prot.getProperty("driverClassName"));
             adataSource.setUrl(adbConf.getUrl());
