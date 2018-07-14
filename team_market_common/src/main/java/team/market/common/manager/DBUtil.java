@@ -1,17 +1,30 @@
-package team.market.customer.util;
+package team.market.common.manager;
 
-import team.market.common.manager.ConnectDBManager;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * @author Justin
+ */
 public class DBUtil {
+
+    public static BasicDataSource dataSource = new BasicDataSource();
+
+    static {
+        String path = DBUtil.class.getClassLoader().getResource("dbconf.properties").getPath();
+        //System.out.print("path:"+path);
+        ConnectDBManager cm = new ConnectDBManager(path);
+        dataSource = cm.dataSource;
+    }
+
     public static Connection getConnection() {
         Connection conn = null;
         try {
-            conn= ConnectDBManager.mcDataSource.getConnection();
+            conn= dataSource.getConnection();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -40,5 +53,6 @@ public class DBUtil {
         }
 
     }
+
 
 }

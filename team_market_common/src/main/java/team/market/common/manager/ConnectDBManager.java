@@ -3,32 +3,39 @@ package team.market.common.manager;
 import org.apache.commons.dbcp2.BasicDataSource;
 import team.market.common.config.DBConf;
 
-import java.util.Map;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
+/**
+ * @author Justin
+ */
 public class ConnectDBManager {
 
-    public static BasicDataSource aDataSource = new BasicDataSource();
+    public static BasicDataSource dataSource = new BasicDataSource();
 
-    public static BasicDataSource mcDataSource = new BasicDataSource();
+    private static DBConf dbConf;
 
-    private static DBConf aDbConf = null;
+    private static String path;
 
-    private static DBConf mcDbConf = null;
-
-    static {
-        Map<String,DBConf> dbConfs = SaxManager.getDbConfs(ConnectDBManager.class.getClassLoader().getResource("dbconf.xml").getPath());
-
-        aDbConf =  dbConfs.get("a");
-        aDataSource.setUrl(aDbConf.getUrl());
-        aDataSource.setUsername(aDbConf.getUsername());
-        aDataSource.setPassword(aDbConf.getPassword());
-        aDataSource.setDriverClassName(aDbConf.getDriverClassName());
-
-        mcDbConf = dbConfs.get("mc");
-        mcDataSource.setUrl(mcDbConf.getUrl());
-        mcDataSource.setUsername(mcDbConf.getUsername());
-        mcDataSource.setPassword(mcDbConf.getPassword());
-        mcDataSource.setDriverClassName(mcDbConf.getDriverClassName());
-
+    public ConnectDBManager(String path){
+         this.path = path;
+         this.initDataSource();
     }
+
+    public static void initDataSource( ) {
+        Properties prot = new Properties();
+        try {
+            prot.load(new FileInputStream(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        dbConf = new DBConf(prot.getProperty("url"), prot.getProperty("username"), prot.getProperty("password"), prot.getProperty("driverClassName"));
+        dataSource.setUrl(dbConf.getUrl());
+        dataSource.setUsername(dbConf.getUsername());
+        dataSource.setPassword(dbConf.getPassword());
+        dataSource.setDriverClassName(dbConf.getDriverClassName());
+    }
+
+
 }
