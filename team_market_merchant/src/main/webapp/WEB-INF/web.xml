@@ -1,8 +1,7 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
 
-<web-app>
+
   <display-name>Archetype Created Web Application</display-name>
 
   <servlet>
@@ -13,4 +12,18 @@
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/user</url-pattern>
   </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>StoreFormServlet</servlet-name>
+    <servlet-class>team.market.merchant.servlet.StoreFormServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StoreFormServlet</servlet-name>
+    <url-pattern>/storform</url-pattern>
+  </servlet-mapping>
+
+
+
+
 </web-app>
