@@ -1,12 +1,16 @@
 package team.market.common.pojo;
 
+import team.market.common.annotation.ColumnIgnore;
+import team.market.common.annotation.ColumnName;
+import team.market.common.annotation.Table;
 import team.market.common.auth.AuthorizingInfo;
 import team.market.common.auth.Permission;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-
+@Table(value = "MC_USER")
 public class User implements Serializable, AuthorizingInfo {
 
     public final static Integer SYSTEM_USER = 0X00;
@@ -35,10 +39,12 @@ public class User implements Serializable, AuthorizingInfo {
         this.createTime = createTime;
     }
 
+    @ColumnName("identity_id")
     public String getIdentityId() {
         return identityId;
     }
 
+    @ColumnName("identity_id")
     public void setIdentityId(String identityId) {
         this.identityId = identityId;
     }
@@ -75,26 +81,32 @@ public class User implements Serializable, AuthorizingInfo {
         this.type = type;
     }
 
+    @ColumnName("create_time")
     public Date getCreateTime() {
         return createTime;
     }
 
+    @ColumnName("create_time")
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
+    @ColumnIgnore
     public String getPrincipal() {
         return this.username;
     }
 
+    @ColumnIgnore
     public String getCredentials() {
         return this.password;
     }
 
+    @ColumnIgnore
     public Set<Permission> getPermissions() {
         return this.permissions;
     }
 
+    @ColumnIgnore
     public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
     }
