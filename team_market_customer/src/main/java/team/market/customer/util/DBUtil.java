@@ -1,4 +1,4 @@
-package team.market.administrator.util;
+package team.market.customer.util;
 import team.market.common.manager.ConnectDBManager;
 
 import java.sql.Connection;
