@@ -1,4 +1,4 @@
-package team.market.common.pojo;
+package team.market.merchant.pojo;
 
 import team.market.common.annontation.ColumnIgnore;
 import team.market.common.annontation.ColumnName;
