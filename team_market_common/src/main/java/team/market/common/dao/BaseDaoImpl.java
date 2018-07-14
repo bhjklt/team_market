@@ -4,9 +4,9 @@ package team.market.common.dao;
  * @ Date       ：Created in 4:42 PM 7/13/2018
  */
 
-import team.market.common.annotation.ColumnIgnore;
-import team.market.common.annotation.ColumnName;
-import team.market.common.annotation.Table;
+import team.market.common.annontation.ColumnIgnore;
+import team.market.common.annontation.ColumnName;
+import team.market.common.annontation.Table;
 import team.market.common.util.ConnectionManager;
 
 import java.io.Serializable;
@@ -17,7 +17,6 @@ import java.lang.reflect.Type;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 

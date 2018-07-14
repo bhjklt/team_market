@@ -1,4 +1,4 @@
-package team.market.common.annotation;
+package team.market.common.annontation;
 
 
 import java.lang.annotation.ElementType;
