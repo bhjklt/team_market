@@ -6,6 +6,10 @@ import team.market.administrator.util.DBUtil;
 
 import java.sql.SQLException;
 
+
+/**
+ * @author thomas
+ */
 public class testUtil {
 
     @Test

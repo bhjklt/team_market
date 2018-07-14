@@ -6,6 +6,8 @@ import java.io.InputStream;
 
 public class FileUtil {
 
+    private static String[] PIC_TYPE = {"jpg","jpeg","png","bmp"};
+
     public static String copyFileInput(InputStream input,String toPath,String fileName){
         String newFilePath = null;
         try{
@@ -26,5 +28,17 @@ public class FileUtil {
 
     public static String makeFileName(String filename) {
         return UUIDUtils.get8UUID()+filename;
+    }
+
+
+    public static boolean checkIFPic(String filename){
+        boolean result = false;
+        for (String type:PIC_TYPE){
+            if(filename.contains(type)){
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 }

@@ -1,8 +1,8 @@
 package team.market.common.pojo;
 
-import team.market.common.annotation.ColumnIgnore;
-import team.market.common.annotation.ColumnName;
-import team.market.common.annotation.Table;
+import team.market.common.annontation.ColumnIgnore;
+import team.market.common.annontation.ColumnName;
+import team.market.common.annontation.Table;
 import team.market.common.auth.AuthorizingInfo;
 import team.market.common.auth.Permission;
 

@@ -7,6 +7,10 @@ import team.market.common.util.HttpUtil;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * @author thomas
+ */
 public class testHttpUtil {
 
 
