@@ -53,7 +53,9 @@ public class HttpUtil {
                 if (output != null) {
                     output.close();
                 }
-                httpCon.disconnect();
+                if(httpCon != null){
+                    httpCon.disconnect();
+                }
             } catch (Exception e2) {
                 // TODO: handle exception
             }
@@ -114,9 +116,11 @@ public class HttpUtil {
                 }  
                 if (in != null) {  
                     in.close();  
-                }  
-                httpCon.disconnect();
-            } catch (IOException ex) {  
+                }
+                if(httpCon != null){
+                    httpCon.disconnect();
+                }
+            } catch (IOException ex) {
                 ex.printStackTrace();  
             }  
         }  
