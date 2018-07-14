@@ -1,7 +1,5 @@
 package team.market.common.util;
 
-import team.market.common.manager.DBUtil;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 

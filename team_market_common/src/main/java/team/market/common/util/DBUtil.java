@@ -1,4 +1,4 @@
-package team.market.common.manager;
+package team.market.common.util;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import team.market.common.config.DatabaseConfiguration;
