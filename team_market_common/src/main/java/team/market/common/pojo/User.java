@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+
 public class User implements Serializable, AuthorizingInfo {
 
     public final static Integer SYSTEM_USER = 0X00;

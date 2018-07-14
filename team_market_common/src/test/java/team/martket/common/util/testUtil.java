@@ -2,23 +2,21 @@ package team.martket.common.util;
 
 import org.junit.Assert;
 import org.junit.Test;
-import team.market.common.util.DBUtil;
 import team.market.common.util.HttpUtil;
+import team.market.common.util.UUIDUtils;
 
-
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * @author thomas
+ */
 public class testUtil {
 
 
 
-    @Test
-    public void testgetConnectionWithJDBC() throws SQLException {
-        Assert.assertTrue(DBUtil.getConnectionWithJDBC("ADB").getAutoCommit());
-        Assert.assertTrue(DBUtil.getConnectionWithJDBC("MDB").getAutoCommit());
-    }
+
 
     @Test
     public void testHttpDoGet(){
@@ -35,5 +33,18 @@ public class testUtil {
         String result = HttpUtil.doPost("http://www.baidu.com",params);
         Assert.assertNotNull(result);
         Assert.assertTrue(result.length()>0);
+    }
+
+
+    @Test
+    public void testGet8UUID(){
+        Assert.assertNotNull(UUIDUtils.get8UUID());
+        Assert.assertNotNull(UUIDUtils.get8UUID().length()==8);
+    }
+
+    @Test
+    public void testGetUUID(){
+        Assert.assertNotNull(UUIDUtils.getUUID());
+        Assert.assertNotNull(UUIDUtils.getUUID().length()>0);
     }
 }
