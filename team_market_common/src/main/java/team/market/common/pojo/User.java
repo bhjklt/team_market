@@ -12,26 +12,30 @@ public class User implements Serializable {
     private static final long serialVersionUID = 6150975380497946378L;
 
     private String id;
+    private String identityId;
     private String username;
     private String password;
     private int type;
-    private String name;
-    private String idCardNumber;
-    private String idCardPic;
     private Date createTime;
 
     public User() {
     }
 
-    public User(String id, String username, String password, int type, String name, String idCardNumber, String idCardPic, Date createTime) {
+    public User(String id, String identityId, String username, String password, int type, Date createTime) {
         this.id = id;
+        this.identityId = identityId;
         this.username = username;
         this.password = password;
         this.type = type;
-        this.name = name;
-        this.idCardNumber = idCardNumber;
-        this.idCardPic = idCardPic;
         this.createTime = createTime;
+    }
+
+    public String getIdentityId() {
+        return identityId;
+    }
+
+    public void setIdentityId(String identityId) {
+        this.identityId = identityId;
     }
 
     public String getId() {
@@ -64,30 +68,6 @@ public class User implements Serializable {
 
     public void setType(int type) {
         this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getIdCardNumber() {
-        return idCardNumber;
-    }
-
-    public void setIdCardNumber(String idCardNumber) {
-        this.idCardNumber = idCardNumber;
-    }
-
-    public String getIdCardPic() {
-        return idCardPic;
-    }
-
-    public void setIdCardPic(String idCardPic) {
-        this.idCardPic = idCardPic;
     }
 
     public Date getCreateTime() {

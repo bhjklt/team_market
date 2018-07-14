@@ -6,19 +6,24 @@ public class Store implements Serializable {
 
     private static final long serialVersionUID = -8863527932188311011L;
 
+    public static final Integer AVAILABLE = 0x00;
+    public static final Integer FORBIDDEN = 0x01;
+
     private String id;
     private String name;
     private String address;
     private String license;
+    private Integer status;
 
     public Store() {
     }
 
-    public Store(String id, String name, String address, String license) {
+    public Store(String id, String name, String address, String license, Integer status) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.license = license;
+        this.status = status;
     }
 
     public String getId() {
@@ -53,4 +58,11 @@ public class Store implements Serializable {
         this.license = license;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }
