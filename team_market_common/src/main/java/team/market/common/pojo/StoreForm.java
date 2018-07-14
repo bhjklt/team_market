@@ -8,14 +8,16 @@ public class StoreForm implements Serializable {
     private static final long serialVersionUID = 3333040282286833062L;
 
     private User user;
+    private Identity identity;
     private Store store;
     private Date submitTime;
 
     public StoreForm() {
     }
 
-    public StoreForm(User user, Store store, Date submitTime) {
+    public StoreForm(User user, Identity identity, Store store, Date submitTime) {
         this.user = user;
+        this.identity = identity;
         this.store = store;
         this.submitTime = submitTime;
     }
@@ -44,4 +46,11 @@ public class StoreForm implements Serializable {
         this.submitTime = submitTime;
     }
 
+    public Identity getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(Identity identity) {
+        this.identity = identity;
+    }
 }

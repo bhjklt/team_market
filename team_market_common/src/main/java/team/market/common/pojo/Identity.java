@@ -53,5 +53,5 @@ public class Identity {
     public void setStatus(Integer status) {
         this.status = status;
     }
-    
+
 }

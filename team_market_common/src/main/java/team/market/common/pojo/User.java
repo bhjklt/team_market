@@ -1,9 +1,14 @@
 package team.market.common.pojo;
 
+import team.market.common.auth.AuthorizingInfo;
+import team.market.common.auth.Permission;
+import team.market.common.auth.Role;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
-public class User implements Serializable {
+public class User implements Serializable, AuthorizingInfo {
 
     public final static Integer SYSTEM_USER = 0X00;
     public final static Integer MERCHANT_USER = 0x01;
@@ -17,6 +22,8 @@ public class User implements Serializable {
     private String password;
     private int type;
     private Date createTime;
+    private Set<Permission> permissions;
+    private Set<Role> roles;
 
     public User() {
     }
@@ -76,6 +83,30 @@ public class User implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getPrincipal() {
+        return this.username;
+    }
+
+    public String getCredentials() {
+        return this.password;
+    }
+
+    public Set<Permission> getPermissions() {
+        return this.permissions;
+    }
+
+    public Set<Role> getRoles() {
+        return this.roles;
+    }
+
+    public void setPermissions(Set<Permission> permissions) {
+        this.permissions = permissions;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
 }
