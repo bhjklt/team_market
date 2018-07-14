@@ -3,7 +3,6 @@ package team.market.common.manager;
 import org.apache.commons.dbcp2.BasicDataSource;
 import team.market.common.config.DBConf;
 
-import java.io.InputStream;
 import java.util.Map;
 
 public class ConnectDBManager {
@@ -17,8 +16,7 @@ public class ConnectDBManager {
     private static DBConf mcDbConf = null;
 
     static {
-        InputStream in = ConnectDBManager.class.getClassLoader().getResourceAsStream("dbconf.xml");
-        Map<String,DBConf> dbConfs = SaxManager.getDbConfs(in);
+        Map<String,DBConf> dbConfs = SaxManager.getDbConfs(ConnectDBManager.class.getClassLoader().getResource("dbconf.xml").getPath());
 
         aDbConf =  dbConfs.get("a");
         aDataSource.setUrl(aDbConf.getUrl());
