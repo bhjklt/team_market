@@ -19,6 +19,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
     private Class<T> entityClass = null;
@@ -133,6 +135,45 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public List<T> findByCondition(Map map) {
+        String sql = "select * from " + getTableAnnotation(entityClass).toLowerCase() + " where ";
+        Set keys = map.keySet();
+        for (Object key : keys) {
+            sql += key.toString() + " = '" + map.get(key).toString() + "' and ";
+        }
+        sql = sql.substring(0, sql.indexOf("and"));
+        System.out.println(sql);
+        try {
+            PreparedStatement statement = ConnectionManager.getInstance().prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+
+            int i = 0;
+            List<Method> list = getMethodWithSet(entityClass);
+            List<T> entityLsit = new ArrayList<T>();
+            while (rs.next()) {
+                T entity = entityClass.newInstance();
+                for (Method method : list) {
+
+                    if (method.getParameterTypes()[0].getSimpleName().indexOf("String") != -1) {
+                        method.invoke(entity, rs.getString(getColumnName(method)));
+                    } else if (method.getParameterTypes()[0].getSimpleName().indexOf("Date") != -1) {
+                        method.invoke(entity, rs.getDate(getColumnName(method)));
+                    } else {
+                        method.invoke(entity, rs.getInt(getColumnName(method)));
+                    }
+                }
+                entityLsit.add(entity);
+            }
+            rs.close();
+            statement.close();
+            return entityLsit;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

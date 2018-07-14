@@ -31,10 +31,10 @@ public class DBUtil {
             try {
                 configurationProperties.load(configurationStream);
                 databaseConfiguration = new DatabaseConfiguration(
-                        configurationProperties.getProperty("driverClass"),
                         configurationProperties.getProperty("url"),
                         configurationProperties.getProperty("username"),
                         configurationProperties.getProperty("password"),
+                        configurationProperties.getProperty("driverClassName"),
                         Integer.valueOf(configurationProperties.getProperty("initialSize"))
                 );
             } catch (IOException e) {
