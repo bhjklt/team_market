@@ -14,7 +14,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="team_market_administrator" target="1.8" />
-      <module name="team_market_common" target="1.5" />
+      <module name="team_market_common" target="6" />
       <module name="team_market_customer" target="1.8" />
       <module name="team_market_merchant" target="1.8" />
     </bytecodeTargetLevel>

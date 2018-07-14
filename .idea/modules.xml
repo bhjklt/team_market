@@ -3,12 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/team_market_administrator/team_market_administrator.iml" filepath="$PROJECT_DIR$/team_market_administrator/team_market_administrator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/team_market_administrator/team_market_administrator.iml" filepath="$PROJECT_DIR$/team_market_administrator/team_market_administrator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/team_market_common/team_market_common.iml" filepath="$PROJECT_DIR$/team_market_common/team_market_common.iml" />
       <module fileurl="file://$PROJECT_DIR$/team_market_common/team_market_common.iml" filepath="$PROJECT_DIR$/team_market_common/team_market_common.iml" />
       <module fileurl="file://$PROJECT_DIR$/team_market_customer/team_market_customer.iml" filepath="$PROJECT_DIR$/team_market_customer/team_market_customer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/team_market_customer/team_market_customer.iml" filepath="$PROJECT_DIR$/team_market_customer/team_market_customer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/team_market_merchant/team_market_merchant.iml" filepath="$PROJECT_DIR$/team_market_merchant/team_market_merchant.iml" />
       <module fileurl="file://$PROJECT_DIR$/team_market_merchant/team_market_merchant.iml" filepath="$PROJECT_DIR$/team_market_merchant/team_market_merchant.iml" />
     </modules>
   </component>
