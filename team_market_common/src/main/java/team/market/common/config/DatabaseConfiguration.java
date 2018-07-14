@@ -3,25 +3,33 @@ package team.market.common.config;
 /**
  * @author Justin
  */
-public class DBConf {
+public class DatabaseConfiguration {
     private String url;
     private String username;
     private String password;
     private String driverClassName;
+    private Integer initialSize;
 
-    public DBConf(){
+    public static DatabaseConfiguration newDefaultInstance() {
+        return new DatabaseConfiguration("oracle.jdbc.driver.OracleDriver", "jdbc:oracle:thin:@localhost:1521:xe", "SYSTEM", "jdbc:oracle:thin:@localhost:1521:xe", 20);
+    }
+
+
+    public DatabaseConfiguration(){
 
     }
 
-    public DBConf(String url, String username, String password, String driverClassName) {
+    public DatabaseConfiguration(String url, String username, String password, String driverClassName, Integer initialSize) {
         super();
         this.url = url;
         this.username = username;
         this.password = password;
         this.driverClassName = driverClassName;
+        this.initialSize = initialSize;
     }
 
-    public String getUrl() { return url;
+    public String getUrl() {
+        return url;
     }
     public void setUrl(String url) {
         this.url = url;
@@ -44,5 +52,10 @@ public class DBConf {
     public void setDriverClassName(String driverClassName) {
         this.driverClassName = driverClassName;
     }
-
+    public Integer getInitialSize() {
+        return initialSize;
+    }
+    public void setInitialSize(Integer initialSize) {
+        this.initialSize = initialSize;
+    }
 }
