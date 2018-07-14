@@ -1,6 +1,6 @@
-package team.market.administrator.listener;
+package team.market.common.manager.listener;
 
-import team.market.administrator.manager.ContextManager;
+import team.market.common.manager.ContextManager;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
