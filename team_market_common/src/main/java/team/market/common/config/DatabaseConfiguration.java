@@ -11,7 +11,7 @@ public class DatabaseConfiguration {
     private Integer initialSize;
 
     public static DatabaseConfiguration newDefaultInstance() {
-        return new DatabaseConfiguration("oracle.jdbc.driver.OracleDriver", "jdbc:oracle:thin:@localhost:1521:xe", "SYSTEM", "jdbc:oracle:thin:@localhost:1521:xe", 20);
+        return new DatabaseConfiguration("oracle.jdbc.driver.OracleDriver", "jdbc:oracle:thin:@localhost:1521:xe", "SYSTEM", "", 20);
     }
 
 
@@ -19,12 +19,12 @@ public class DatabaseConfiguration {
 
     }
 
-    public DatabaseConfiguration(String url, String username, String password, String driverClassName, Integer initialSize) {
+    public DatabaseConfiguration(String driverClassName, String username, String password, String url, Integer initialSize) {
         super();
-        this.url = url;
+        this.driverClassName = driverClassName;
         this.username = username;
         this.password = password;
-        this.driverClassName = driverClassName;
+        this.url = url;
         this.initialSize = initialSize;
     }
 

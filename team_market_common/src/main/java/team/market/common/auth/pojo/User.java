@@ -1,11 +1,9 @@
-package team.market.customer.pojo;
+package team.market.common.auth.pojo;
 
 import team.market.common.annontation.ColumnIgnore;
 import team.market.common.annontation.ColumnName;
 import team.market.common.annontation.Table;
 import team.market.common.auth.AuthorizingInfo;
-import team.market.common.auth.pojo.Permission;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package team.market.administrator.manager;
+package team.market.common.manager;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
