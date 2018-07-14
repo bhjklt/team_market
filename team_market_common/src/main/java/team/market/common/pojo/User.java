@@ -2,8 +2,6 @@ package team.market.common.pojo;
 
 import team.market.common.auth.AuthorizingInfo;
 import team.market.common.auth.Permission;
-import team.market.common.auth.Role;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -99,5 +97,5 @@ public class User implements Serializable, AuthorizingInfo {
     public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
     }
-    
+
 }
