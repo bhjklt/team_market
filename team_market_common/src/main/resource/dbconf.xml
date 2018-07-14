@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dbConfs>
+    <dbConf id="a">
+        <url>url=jdbc:oracle:thin:@10.222.29.161:1521:xe</url>
+        <username>admindb</username>
+        <password>admindb</password>
+        <driverClassName>oracle.jdbc.driver.OracleDriver</driverClassName>
+    </dbConf>
+    <dbConf id="mc">
+        <url>url=jdbc:oracle:thin:@10.222.29.161:1521:xe</url>
+        <username>merchantdb</username>
+        <password>merchantdb</password>
+        <driverClassName>oracle.jdbc.driver.OracleDriver</driverClassName>
+    </dbConf>
+</dbConfs>
