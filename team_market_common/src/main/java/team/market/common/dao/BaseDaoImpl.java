@@ -162,6 +162,9 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
                         method.invoke(entity, rs.getString(getColumnName(method)));
                     } else if (method.getParameterTypes()[0].getSimpleName().indexOf("Date") != -1) {
                         method.invoke(entity, rs.getDate(getColumnName(method)));
+
+                    } else if (method.getParameterTypes()[0].getSimpleName().indexOf("Double") != -1) {
+                        method.invoke(entity, rs.getDouble(getColumnName(method)));
                     } else {
                         method.invoke(entity, rs.getInt(getColumnName(method)));
                     }
@@ -195,6 +198,8 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
                         method.invoke(entity, rs.getString(getColumnName(method)));
                     } else if (method.getParameterTypes()[0].getSimpleName().indexOf("Date") != -1) {
                         method.invoke(entity, rs.getDate(getColumnName(method)));
+                    } else if (method.getParameterTypes()[0].getSimpleName().indexOf("Double") != -1) {
+                        method.invoke(entity, rs.getDouble(getColumnName(method)));
                     } else {
                         method.invoke(entity, rs.getInt(getColumnName(method)));
                     }
@@ -228,6 +233,8 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
                         method.invoke(entity, rs.getString(getColumnName(method)));
                     } else if (method.getParameterTypes()[0].getSimpleName().indexOf("Date") != -1) {
                         method.invoke(entity, rs.getDate(getColumnName(method)));
+                    } else if (method.getParameterTypes()[0].getSimpleName().indexOf("Double") != -1) {
+                        method.invoke(entity, rs.getDouble(getColumnName(method)));
                     } else {
                         method.invoke(entity, rs.getInt(getColumnName(method)));
                     }
