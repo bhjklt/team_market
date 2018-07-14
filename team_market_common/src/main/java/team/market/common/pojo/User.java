@@ -23,7 +23,6 @@ public class User implements Serializable, AuthorizingInfo {
     private int type;
     private Date createTime;
     private Set<Permission> permissions;
-    private Set<Role> roles;
 
     public User() {
     }
@@ -97,16 +96,8 @@ public class User implements Serializable, AuthorizingInfo {
         return this.permissions;
     }
 
-    public Set<Role> getRoles() {
-        return this.roles;
-    }
-
     public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
     }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
+    
 }
