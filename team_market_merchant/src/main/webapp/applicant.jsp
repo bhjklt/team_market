@@ -22,11 +22,11 @@
     <table align="left">
         <tr>
             <td><label class="name">真实姓名：</label></td>
-            <td><input type="text" maxlength="10" name="name"/></td>
+            <td><input type="text" maxlength="10" name="Identity.name"/></td>
         </tr>
         <tr>
             <td><label class="name">身份证号码：</label></td>
-            <td><input type="text" maxlength="18" name="idCardNumber"/></td>
+            <td><input type="text" maxlength="18" name="Identity.idCardNumber"/></td>
         </tr>
         <tr>
             <td><label>身份证照片：</label></td>
@@ -34,15 +34,15 @@
         </tr>
         <tr>
             <td><label class="name">店名：</label></td>
-            <td><input type="text" maxlength="15" name="storeName"/></td>
+            <td><input type="text" maxlength="15" name="Store.name"/></td>
         </tr>
         <tr>
             <td><label class="name">店地址：</label></td>
-            <td><input type="text" maxlength="30" name="address"/></td>
+            <td><input type="text" maxlength="30" name="Store.address"/></td>
         </tr>
         <tr>
             <td><label class="name">营业执照号：</label></td>
-            <td><input type="text" maxlength="20" name="license"/></td>
+            <td><input type="text" maxlength="20" name="Store.license"/></td>
         </tr>
         <tr>
             <td><br/></td>

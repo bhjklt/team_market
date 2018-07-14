@@ -1,4 +1,5 @@
-package team.market.common.pojo;
+package team.market.merchant.pojo;
+
 
 import java.io.Serializable;
 import java.util.Date;
