@@ -1,15 +1,13 @@
 package team.market.customer.util;
+
 import team.market.common.manager.ConnectDBManager;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-/**
- * @author Justin
- */
-public class DBUtil {
 
+public class DBUtil {
     public static Connection getConnection() {
         Connection conn = null;
         try {
