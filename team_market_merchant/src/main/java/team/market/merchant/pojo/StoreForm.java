@@ -55,4 +55,18 @@ public class StoreForm implements Serializable {
     public void setIdentity(Identity identity) {
         this.identity = identity;
     }
+
+    @Override
+    public String toString() {
+        return "StoreForm{" +
+                "user=" + user +
+                ", identity_Name=" + identity.getName() +
+                ", identity_cardNum=" + identity.getIdCardNumber() +
+                ", identity_pic=" + identity.getIdCardPic() +
+                ", store_name=" + store.getName() +
+                ", store_license=" + store.getLicense() +
+                ", store_address=" + store.getAddress() +
+                ", submitTime=" + submitTime +
+                '}';
+    }
 }
