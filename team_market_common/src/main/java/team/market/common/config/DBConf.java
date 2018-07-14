@@ -1,7 +1,9 @@
 package team.market.common.config;
 
+/**
+ * @author Justin
+ */
 public class DBConf {
-    private String id;
     private String url;
     private String username;
     private String password;
@@ -11,21 +13,15 @@ public class DBConf {
 
     }
 
-    public DBConf(String id, String url, String username, String password, String driverClassName) {
+    public DBConf(String url, String username, String password, String driverClassName) {
         super();
-        this.id = id;
         this.url = url;
         this.username = username;
         this.password = password;
         this.driverClassName = driverClassName;
     }
 
-    public String getId(){
-        return id;
-    }
-    public void setId(String id){ this.id = id; }
-    public String getUrl() {
-        return url;
+    public String getUrl() { return url;
     }
     public void setUrl(String url) {
         this.url = url;
