@@ -30,7 +30,8 @@ public class HttpUtil {
             httpCon.setConnectTimeout(TIMEOUT);
             httpCon.setRequestMethod("GET");
             httpCon.setRequestProperty("accept", "*/*");  
-            httpCon.setRequestProperty("connection", "Keep-Alive"); 
+            httpCon.setRequestProperty("connection", "Keep-Alive");
+            httpCon.connect();
             if(httpCon.getResponseCode() == 200){
                 input = httpCon.getInputStream();
                 output = new ByteArrayOutputStream();
@@ -89,7 +90,8 @@ public class HttpUtil {
             httpCon.setDoOutput(true);  
             httpCon.setDoInput(true);  
             httpCon.setReadTimeout(TIMEOUT);  
-            httpCon.setConnectTimeout(TIMEOUT);  
+            httpCon.setConnectTimeout(TIMEOUT);
+            httpCon.connect();
             if(params != null){
                 StringBuilder sb = new StringBuilder();
                 for (String key : params.keySet()) {
@@ -99,12 +101,13 @@ public class HttpUtil {
                 out = new PrintWriter(httpCon.getOutputStream());
                 out.print(sb.toString().substring(0, sb.toString().length() - 1));
                 out.flush();
+                in = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+                String line = "";
+                while((line = in.readLine()) != null){
+                    result.append(line);
+                }
             }
-            in = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
-            String line = "";
-            while((line = in.readLine()) != null){
-                result.append(line);
-            }
+
             
         } catch (IOException e) {
             // TODO Auto-generated catch block

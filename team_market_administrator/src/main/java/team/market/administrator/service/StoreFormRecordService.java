@@ -39,6 +39,20 @@ public class StoreFormRecordService {
         return null;
     }
 
+    public StoreFormRecord getStoreFormRecordById(String id) {
+        HashMap<String, String> params = new HashMap<String, String>();
+        return (StoreFormRecord) stroeRecordDao.find(id);
+    }
+
+
+    public void updateStatus(String id, String status) {
+        HashMap<String, String> params = new HashMap<String, String>();
+        StoreFormRecord storeFormRecord =  (StoreFormRecord) stroeRecordDao.find(id);
+        storeFormRecord.setStatus(Integer.valueOf(status));
+        stroeRecordDao.update(storeFormRecord);
+    }
+
+
 
     public List<StoreFormRecord>getStoreFormRecord() {
 

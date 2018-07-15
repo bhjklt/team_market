@@ -21,4 +21,12 @@ public class AdminServlet extends BaseServlet {
         req.setAttribute("records",records);
         return "/admin/records.jsp";
     }
+
+    public String modifyStatus(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String srid = req.getParameter("id");
+        String status = req.getParameter("status");
+        StoreFormRecordService recordService = new StoreFormRecordService();
+         recordService.updateStatus(srid, status);
+        return storeRecords(req, resp);
+    }
 }

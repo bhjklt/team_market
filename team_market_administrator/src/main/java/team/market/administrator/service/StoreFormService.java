@@ -34,7 +34,7 @@ public class StoreFormService {
                 storeForm.setIdentity(identitys.get(0));
             }
             storeForm.setStore(store);
-
+            storeForm.setStoreFormRecord(storeFormRecord);
             storeForms.add(storeForm);
         }
         return storeForms;
@@ -56,6 +56,9 @@ public class StoreFormService {
             }
 
             storeForm.setStore(store);
+            storeForm.setSubmitTime(storeFormRecords.get(0).getCreateTime());
+            storeForm.setStoreFormRecord(storeFormRecords.get(0));
+
             return storeForm;
         }
         return null;

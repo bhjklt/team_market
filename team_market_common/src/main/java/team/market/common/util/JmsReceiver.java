@@ -25,7 +25,7 @@ public class JmsReceiver {
         try {
             con = factory.createConnection();
             con.start();
-            session = con.createSession(false, Session.CLIENT_ACKNOWLEDGE);
+            session = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
         } catch (JMSException e) {
             e.printStackTrace();
         }

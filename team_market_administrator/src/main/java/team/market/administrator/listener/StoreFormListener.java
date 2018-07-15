@@ -24,27 +24,32 @@ public class StoreFormListener implements MessageListener {
     StoreFormRecordService storeFormService = new StoreFormRecordService();
     StoreService storeService = new StoreService();
     IdentityService identityService = new IdentityService();
+
     @Override
     public void onMessage(Message message) {
         try {
             String data = ((TextMessage) message).getText();
+
             System.out.println("receive storeform " + data);
             StoreForm storeForm = JsonUtil.json2pojo(data, StoreForm.class);
 
-            StoreFormRecord storeFormRecord = new StoreFormRecord();
-            storeFormRecord.setId(UUIDUtils.getUUID());
-            storeFormRecord.setStatus(StoreFormRecord.PENDING);
-            storeFormRecord.setUserId(storeForm.getUser().getId());
-            storeFormRecord.setCreateTime(new Date(System.currentTimeMillis()));
-            storeFormService.saveStoreForm(storeFormRecord);
+
 
             Identity identity = storeForm.getIdentity();
             identityService.saveIdentity(identity);
 
             Store store = storeForm.getStore();
             store.setId(UUIDUtils.getUUID());
-            storeService.saveStore(store);
 
+            StoreFormRecord storeFormRecord = new StoreFormRecord();
+            storeFormRecord.setId(UUIDUtils.getUUID());
+            storeFormRecord.setsId(store.getId());
+            storeFormRecord.setStatus(StoreFormRecord.PENDING);
+            storeFormRecord.setUserId(storeForm.getUser().getId());
+            storeFormRecord.setCreateTime(new Date(System.currentTimeMillis()));
+            storeFormService.saveStoreForm(storeFormRecord);
+            storeService.saveStore(store);
+            Thread.sleep(3000);
             message.acknowledge();
         } catch (Exception e) {
             e.printStackTrace();

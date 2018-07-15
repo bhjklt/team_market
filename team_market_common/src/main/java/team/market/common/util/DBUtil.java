@@ -64,11 +64,12 @@ public class DBUtil {
      */
     public static Connection getConnection() {
         Connection connection = null;
-        try {
-            connection = getConnectionWithDBCP();
-        } catch (SQLException e) {
-            System.err.println("Can not create connection with DBCP, " + e.toString());
-        }
+        //关掉猛得一匹
+//        try {
+//            connection = getConnectionWithDBCP();
+//        } catch (SQLException e) {
+//            System.err.println("Can not create connection with DBCP, " + e.toString());
+//        }
         if (connection == null) {
             try {
                 Class.forName(databaseConfiguration.getDriverClassName());
@@ -86,6 +87,7 @@ public class DBUtil {
         Connection connection = null;
         if (dataSource != null) {
             connection = dataSource.getConnection();
+            System.out.println("abcda" + dataSource.getMaxTotal());
         }
         return connection;
     }

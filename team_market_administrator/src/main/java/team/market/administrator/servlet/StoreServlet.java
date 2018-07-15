@@ -10,19 +10,19 @@ import java.util.List;
 
 public class StoreServlet extends BaseServlet {
 
-    private static StoreService storeService = new StoreService();
-
-    public void available(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        response.setContentType("text/json");
-        response.setCharacterEncoding("UTF-8");
-
-
-        List<Store> storeList = storeService.getAvailableStores();
-
-//        System.err.println(new String(JsonUtil.toJson(storeList).getBytes("ISO-8859-1"), "GBK"));
-        response.getWriter().write(JsonUtil.obj2json(storeList));
-
-    }
+//    private static StoreService storeService = new StoreService();
+//
+//    public void available(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//
+//        response.setContentType("text/json");
+//        response.setCharacterEncoding("UTF-8");
+//
+//
+//        List<Store> storeList = storeService.getAvailableStores();
+//
+////        System.err.println(new String(JsonUtil.toJson(storeList).getBytes("ISO-8859-1"), "GBK"));
+//        response.getWriter().write(JsonUtil.obj2json(storeList));
+//
+//    }
 
 }

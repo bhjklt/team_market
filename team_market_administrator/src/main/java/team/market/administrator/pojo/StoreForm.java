@@ -11,6 +11,7 @@ public class StoreForm implements Serializable {
     private Identity identity;
     private Store store;
     private Date submitTime;
+    private StoreFormRecord storeFormRecord;
 
     public StoreForm() {
     }
@@ -54,6 +55,11 @@ public class StoreForm implements Serializable {
         this.identity = identity;
     }
 
+    public StoreFormRecord getStoreFormRecord() {
+        return storeFormRecord;
+    }
 
-
+    public void setStoreFormRecord(StoreFormRecord storeFormRecord) {
+        this.storeFormRecord = storeFormRecord;
+    }
 }
