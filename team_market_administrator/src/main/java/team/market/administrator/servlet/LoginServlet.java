@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class AdminServlet extends BaseServlet {
+public class LoginServlet extends BaseServlet {
 
     private AdminService service = new AdminService();
 
@@ -31,8 +31,15 @@ public class AdminServlet extends BaseServlet {
             req.setAttribute("errorMsg","用户名或密码错误");
             return "/adminLogin.jsp";
         }
-        HttpSession session = ContextManager.getInstance().getSession();
+        HttpSession session = req.getSession();
         session.setAttribute("admin",admin);
-        return "r:/index.jsp";
+        return "r:/admin/index.jsp";
     }
+
+    public String logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        session.setAttribute("admin",null);
+        return "r:/adminLogin.jsp";
+    }
+
 }
