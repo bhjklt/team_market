@@ -17,9 +17,8 @@ import java.io.IOException;
 
 public class LoginServlet extends BaseServlet {
 
-    private AdminService service = new AdminService();
-
     public String login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        AdminService service = new AdminService();
         User admin = new User();
         try {
             admin = (User)WebUtil.parseRequest(admin, req.getParameterMap(), User.class);

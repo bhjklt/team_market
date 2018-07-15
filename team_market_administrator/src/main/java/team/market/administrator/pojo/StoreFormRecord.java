@@ -4,7 +4,9 @@ import team.market.common.annontation.ColumnName;
 import team.market.common.annontation.Table;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
+
+
 @Table("A_STORE_FORM_RECORD")
 public class StoreFormRecord implements Serializable {
 

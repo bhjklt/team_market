@@ -1,6 +1,7 @@
 package team.market.administrator.service;
 
 import team.market.administrator.dao.UserDaoImpl;
+import team.market.administrator.message.RecordMessage;
 import team.market.administrator.pojo.User;
 import team.market.common.dao.BaseDao;
 
