@@ -1,5 +1,6 @@
 package team.market.merchant.servlet;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.fileupload.FileUploadException;
@@ -20,11 +21,13 @@ import java.util.Map;
 public class StoreFormServlet extends BaseServlet {
 
     private static final String NO_TYPE_FILE="文件格式不符合";
+    private static final String MAX_SIZE_ERROR="文件过大";
+    private static final long MAX_SIZE = 2000000;
 
     private CovertParamsToBean cptb = new CovertParamsToBean();
 
     public void apply(HttpServletRequest req, HttpServletResponse resp) throws Exception{
-        String uploadPath = this.getServletContext().getRealPath("/upload");
+        String uploadPath = (String) this.getServletContext().getAttribute("upload");
         FileUpload fUpload = new FileUpload(new DiskFileItemFactory());
         Map<String,String> paramsMap = new HashMap<String,String>();
         try {
@@ -36,19 +39,21 @@ public class StoreFormServlet extends BaseServlet {
                 }
                 else {
                     String fileName = item.getName();
-                    if(!FileUtil.checkIFPic(fileName)) {
-                        req.setAttribute("error", NO_TYPE_FILE);
-                        req.getRequestDispatcher("index.jsp").forward(req,resp);
+                    if(!FileUtil.checkIFPic(fileName)||item.getSize()>MAX_SIZE) {
+                        req.setAttribute("error", NO_TYPE_FILE+" or "+MAX_SIZE_ERROR);
+                        //req.getRequestDispatcher("index.jsp").forward(req,resp);
+                    }else {
+                        InputStream in = item.getInputStream();
+                        newFileName = FileUtil.copyFileInput(in, uploadPath, fileName);
+                        in.close();
                     }
-                    InputStream in = item.getInputStream();
-                    newFileName = FileUtil.copyFileInput(in, uploadPath, fileName);
-                    in.close();
                 }
             }
             if(newFileName!=null){
                 paramsMap.put("Identity.idCardPic",newFileName);
                 StoreForm storeForm = cptb.covertParamsToStFo(paramsMap);
-                System.out.println(storeForm);
+                ObjectMapper objectMapper = new ObjectMapper();
+                System.out.println(objectMapper.writeValueAsString(storeForm));
             }
         } catch (FileUploadException e) {
             // TODO Auto-generated catch block

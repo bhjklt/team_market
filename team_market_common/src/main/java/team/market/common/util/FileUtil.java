@@ -10,8 +10,10 @@ public class FileUtil {
 
     public static String copyFileInput(InputStream input,String toPath,String fileName){
         String newFilePath = null;
+        String newFileName = null;
         try{
-            newFilePath = toPath+"\\"+makeFileName(fileName);
+            newFileName = makeFileName(fileName);
+            newFilePath = toPath+"\\"+newFileName;
             OutputStream out = new FileOutputStream(newFilePath,true);
             int len = 0;
             byte[] buf = new byte[128];
@@ -22,7 +24,7 @@ public class FileUtil {
         }catch(Exception e){
             e.printStackTrace();
         }
-        return newFilePath;
+        return newFileName;
     }
 
 

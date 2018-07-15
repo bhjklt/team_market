@@ -1,6 +1,6 @@
 package team.market.merchant.servlet;
 
-import team.market.common.pojo.User;
+import team.market.merchant.pojo.User;
 import team.market.common.servlet.BaseServlet;
 import team.market.merchant.dao.UserDao;
 import team.market.merchant.dao.impl.UserDaoImpl;

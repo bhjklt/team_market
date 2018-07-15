@@ -1,7 +1,7 @@
 package team.market.merchant.dao;
 
 import team.market.common.dao.BaseDao;
-import team.market.common.pojo.User;
+import team.market.merchant.pojo.User;
 
 import java.io.Serializable;
 

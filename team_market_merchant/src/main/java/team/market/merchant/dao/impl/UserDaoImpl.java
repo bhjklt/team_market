@@ -1,9 +1,9 @@
 package team.market.merchant.dao.impl;
 
 import team.market.common.dao.BaseDaoImpl;
-import team.market.common.pojo.User;
+import team.market.merchant.pojo.User;
 import team.market.common.util.ConnectionManager;
-import team.market.common.util.ResultSetUtil;
+//import team.market.common.util.ResultSetUtil;
 import team.market.merchant.dao.UserDao;
 
 import java.io.Serializable;
@@ -22,11 +22,11 @@ public class UserDaoImpl extends BaseDaoImpl<User,Serializable> implements UserD
         try {
             PreparedStatement statement = ConnectionManager.getInstance().prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
-            List<Map> list = ResultSetUtil.convertList(rs);
-            if(list.size()>0){
-                Map row = list.get(0);
-                user.setUsername((String) row.get("password"));
-            }
+//            List<Map> list = ResultSetUtil.convertList(rs);
+//            if(list.size()>0){
+//                Map row = list.get(0);
+//                user.setUsername((String) row.get("password"));
+//            }
 
         } catch (SQLException e) {
             e.printStackTrace();
