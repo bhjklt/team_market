@@ -20,7 +20,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>StoreFormServlet</servlet-name>
-    <url-pattern>/storform</url-pattern>
+    <url-pattern>/storeform</url-pattern>
   </servlet-mapping>
 
 

@@ -7,6 +7,8 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletRequestContext;
 import team.market.common.servlet.BaseServlet;
 import team.market.common.util.FileUtil;
+import team.market.merchant.pojo.StoreForm;
+import team.market.merchant.util.CovertParamsToBean;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +21,7 @@ public class StoreFormServlet extends BaseServlet {
 
     private static final String NO_TYPE_FILE="文件格式不符合";
 
+    private CovertParamsToBean cptb = new CovertParamsToBean();
 
     public void apply(HttpServletRequest req, HttpServletResponse resp) throws Exception{
         String uploadPath = this.getServletContext().getRealPath("/upload");
@@ -26,6 +29,7 @@ public class StoreFormServlet extends BaseServlet {
         Map<String,String> paramsMap = new HashMap<String,String>();
         try {
             List<FileItem> fileItems = fUpload.parseRequest(new ServletRequestContext(req));
+            String newFileName = null;
             for(FileItem item:fileItems) {
                 if(item.isFormField()) {
                     paramsMap.put(item.getFieldName(),item.getString("UTF-8"));
@@ -37,12 +41,14 @@ public class StoreFormServlet extends BaseServlet {
                         req.getRequestDispatcher("index.jsp").forward(req,resp);
                     }
                     InputStream in = item.getInputStream();
-                    String newFileName = FileUtil.copyFileInput(in, uploadPath, fileName);
-                    if(newFileName!=null){
-
-                    }
+                    newFileName = FileUtil.copyFileInput(in, uploadPath, fileName);
                     in.close();
                 }
+            }
+            if(newFileName!=null){
+                paramsMap.put("Identity.idCardPic",newFileName);
+                StoreForm storeForm = cptb.covertParamsToStFo(paramsMap);
+                System.out.println(storeForm);
             }
         } catch (FileUploadException e) {
             // TODO Auto-generated catch block

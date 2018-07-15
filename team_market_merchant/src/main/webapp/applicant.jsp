@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<form action="storeform?mehod=apply" method="post" enctype="multipart/form-data">
+<form action="storeform?method=apply" method="post" enctype="multipart/form-data">
     <table align="left">
         <tr>
             <td><label class="name">真实姓名：</label></td>
