@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<form action="/" method="post">
+<form action="/merc/user?method=login" method="post">
     <table align="left">
         <tr>
             <td><label class="name">用户名：</label></td>
@@ -33,13 +33,18 @@
 
         </tr>
         <tr>
-            <td><input type="submit" value="提交" /> </td>
+            <td><input type="submit" value="登陆" /> </td>
             <td><input type="reset" value="重置" /></td>
+            <td>
+                <a href="register.jsp">
+                注册
+                </a>
+            </td>
         </tr>
-        <tr>
-            <td>${error}</td>
-        </tr>
+
     </table>
+
+    <p>${login_error}</p>
 </form>
 </body>
 </html>

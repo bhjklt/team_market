@@ -30,6 +30,7 @@ public class StoreFormServlet extends BaseServlet {
     private static final String NO_TYPE_FILE="文件格式不符合";
     private static final String MAX_SIZE_ERROR="文件过大";
     private static final long MAX_SIZE = 2000000;
+    private static final String MQQueue = "lance.queue";
 
     private CovertParamsToBean cptb = new CovertParamsToBean();
 
@@ -68,7 +69,7 @@ public class StoreFormServlet extends BaseServlet {
                     ObjectMapper objectMapper = new ObjectMapper();
                     String json = objectMapper.writeValueAsString(storeForm);
                     JmsSender jmsSender = new JmsSender();
-                    jmsSender.sendMessage("lance.queue",json);
+                    jmsSender.sendMessage(MQQueue,json);
                 }
             } catch (FileUploadException e) {
                 // TODO Auto-generated catch block

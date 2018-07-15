@@ -1,5 +1,9 @@
 package team.market.merchant.servlet;
 
+import team.market.common.auth.SecurityUtils;
+import team.market.common.auth.Subject;
+import team.market.common.auth.UsernamePasswordToken;
+import team.market.common.auth.exception.UnknownAccountException;
 import team.market.merchant.pojo.User;
 import team.market.common.servlet.BaseServlet;
 import team.market.merchant.dao.UserDao;
@@ -14,20 +18,36 @@ public class UserServlet extends BaseServlet {
 
     private UserDao userDao = new UserDaoImpl();
 
-    public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       User user = null;
-       User userData = userDao.findUser(user.getUsername());
-       if(userData != null){
-           if(userData.getPassword().equals(user.getPassword())){
-               //跳转到主页
-                resp.sendRedirect(req.getContextPath()+"/");
-           }else{
-               //密码错误
-           }
+    private static final String PARAMS_NULL_ERROR = "用户名或密码不能为空";
+    private static final String USER_NULL_ERROR = "用户名或密码错误";
+    private static final String INDEX_HTML = "index.jsp";
+    private static final String CENTER_HTML = "center.jsp";
 
-       }else{
-           //用户名错误
-       }
+
+    public String login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Subject subject = SecurityUtils.getSubject();
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        String result = INDEX_HTML;
+        if(username!=null&&password!=null){
+            try {
+                subject.login(new UsernamePasswordToken(username,password));
+                if(subject.isLogged()){
+                    req.removeAttribute("index.jsp");
+                    result = CENTER_HTML;
+                }
+            }
+            catch (UnknownAccountException uk){
+                req.setAttribute("login_error",USER_NULL_ERROR);
+                return result;
+            }
+        }
+        else {
+            req.setAttribute("login_error",PARAMS_NULL_ERROR);
+        }
+        return result;
+
+
 
     }
 
