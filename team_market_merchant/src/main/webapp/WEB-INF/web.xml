@@ -3,8 +3,17 @@
 
 
   <display-name>Archetype Created Web Application</display-name>
-  
-  
+
+  <filter>
+    <filter-name>ApplyFilter</filter-name>
+    <filter-class>team.market.merchant.Filter.ApplyFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ApplyFilter</filter-name>
+    <url-pattern>/applicant.jsp</url-pattern>
+  </filter-mapping>
+
+
   <listener>
     <listener-class>team.market.merchant.listener.FileContextListener</listener-class>
   </listener>

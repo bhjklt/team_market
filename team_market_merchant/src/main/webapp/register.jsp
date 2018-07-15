@@ -12,7 +12,7 @@
 </head>
 <body>
     <h1>注册</h1>
-    <form action="/merc/user?method=register" method="post">
+    <form action="user?method=register" method="post">
         <table align="left">
             <tr>
                 <td><label class="name">用户名：</label></td>

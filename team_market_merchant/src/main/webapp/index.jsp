@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<form action="/merc/user?method=login" method="post">
+<form action="user?method=login" method="post">
     <table align="left">
         <tr>
             <td><label class="name">用户名：</label></td>

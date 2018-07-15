@@ -31,18 +31,20 @@ public class StoreFormServlet extends BaseServlet {
     private static final String MAX_SIZE_ERROR="文件过大";
     private static final long MAX_SIZE = 2000000;
     private static final String MQQueue = "lance.queue";
+    private static final String APPLY_HTML = "applicant.jsp";
+    private static final String SUCCESS_HTML = "success.jsp";
 
     private CovertParamsToBean cptb = new CovertParamsToBean();
 
     public String  apply(HttpServletRequest req, HttpServletResponse resp) throws Exception{
         String uploadPath = (String) this.getServletContext().getAttribute("upload");
         FileUpload fUpload = new FileUpload(new DiskFileItemFactory());
-        Subject subject = SecurityUtils.getSubject();
-        subject.login(new UsernamePasswordToken("thomas","123546"));
-        if(subject.isLogged()){
+
+
             Map<String, Object> paramsMap = new HashMap<String, Object>();
             try {
                 User u = new User();
+                Subject subject = SecurityUtils.getSubject();
                 u.setId(((team.market.common.auth.pojo.User)subject.getAuthorizingInfo()).getId());
                 paramsMap.put("user",u);
                 List<FileItem> fileItems = fUpload.parseRequest(new ServletRequestContext(req));
@@ -54,7 +56,7 @@ public class StoreFormServlet extends BaseServlet {
                         String fileName = item.getName();
                         if (!FileUtil.checkIFPic(fileName) || item.getSize() > MAX_SIZE) {
                             req.setAttribute("error", NO_TYPE_FILE + " 或 " + MAX_SIZE_ERROR);
-                            return "applicant.jsp";
+                            return APPLY_HTML;
                         } else {
                             InputStream in = item.getInputStream();
                             newFileName = FileUtil.copyFileInput(in, uploadPath, fileName);
@@ -75,10 +77,9 @@ public class StoreFormServlet extends BaseServlet {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }else {
-            resp.sendRedirect("index.jsp");
-        }
-        return "r:/success.jsp";
+
+
+        return "r:/"+SUCCESS_HTML;
     }
 
 
