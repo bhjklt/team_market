@@ -46,11 +46,18 @@
     <servlet-name>StoreFormServlet</servlet-name>
     <servlet-class>team.market.merchant.servlet.StoreFormServlet</servlet-class>
   </servlet>
+  <servlet>
+        <servlet-name>GetPicServlet</servlet-name>
+        <servlet-class>team.market.merchant.servlet.GetPicServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>StoreFormServlet</servlet-name>
     <url-pattern>/storeform</url-pattern>
   </servlet-mapping>
-
+<servlet-mapping>
+  <servlet-name>GetPicServlet</servlet-name>
+  <url-pattern>getPic</url-pattern>
+</servlet-mapping>
 
 
 
