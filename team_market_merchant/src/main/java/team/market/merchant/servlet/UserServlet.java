@@ -4,10 +4,13 @@ import team.market.common.auth.SecurityUtils;
 import team.market.common.auth.Subject;
 import team.market.common.auth.UsernamePasswordToken;
 import team.market.common.auth.exception.UnknownAccountException;
+import team.market.common.auth.pojo.Permission;
 import team.market.merchant.pojo.User;
 import team.market.common.servlet.BaseServlet;
 import team.market.merchant.dao.UserDao;
 import team.market.merchant.dao.impl.UserDaoImpl;
+import team.market.merchant.service.UserService;
+import team.market.merchant.service.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,13 +19,14 @@ import java.io.IOException;
 
 public class UserServlet extends BaseServlet {
 
-    private UserDao userDao = new UserDaoImpl();
+    private UserService userService = new UserServiceImpl();
 
     private static final String PARAMS_NULL_ERROR = "用户名或密码不能为空";
     private static final String USER_NULL_ERROR = "用户名或密码错误";
+    private static final String USER_MORE_ERROR = "用户名已存在";
     private static final String INDEX_HTML = "index.jsp";
     private static final String CENTER_HTML = "center.jsp";
-
+    private static final String REGISITER_HTML = "register.jsp";
 
     public String login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Subject subject = SecurityUtils.getSubject();
@@ -51,8 +55,29 @@ public class UserServlet extends BaseServlet {
 
     }
 
-    public void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+    public String register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        String result = REGISITER_HTML;
+        if(username!=null&&password!=null){
+            User newUser = new User();
+            newUser.setUsername(username);
+            newUser.setPassword(password);
+            User user = userService.addUser(newUser);
+            if(user!=null){
+                Subject subject = SecurityUtils.getSubject();
+                subject.login(new UsernamePasswordToken(username,password));
+                subject.addPermission(Permission.DefaultPermission.CREATE_STORE);
+                result = CENTER_HTML;
+            }
+            else {
+                req.setAttribute("register_error",USER_MORE_ERROR);
+            }
+        }
+        else {
+            req.setAttribute("register_error",PARAMS_NULL_ERROR);
+        }
+        return result;
 
     }
 }

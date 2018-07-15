@@ -7,5 +7,6 @@ import java.io.Serializable;
 
 public interface UserDao extends BaseDao<User,Serializable> {
 
-    public User findUser(String username);
+
+
 }

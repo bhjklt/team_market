@@ -12,10 +12,28 @@
 </head>
 <body>
     <h1>注册</h1>
-    <form method="POST" action="user?method=register">
-        <input type="text" name="User.usernane">用户名 <br>
-        <input type="text" name="User.password">密码 <br>
-        <input type="submit" value="Register">
+    <form action="/merc/user?method=register" method="post">
+        <table align="left">
+            <tr>
+                <td><label class="name">用户名：</label></td>
+                <td><input type="text" maxlength="10" name="username"/></td>
+            </tr>
+            <tr>
+                <td><label class="name">密码：</label></td>
+                <td><input type="text" maxlength="18" name="password"/></td>
+            </tr>
+            <tr>
+                <td><br/></td>
+
+            </tr>
+            <tr>
+                <td><input type="submit" value="确认" /> </td>
+                <td><input type="reset" value="重置" /></td>
+            </tr>
+
+        </table>
+
+        <p>${register_error}</p>
     </form>
 </body>
 </html>
