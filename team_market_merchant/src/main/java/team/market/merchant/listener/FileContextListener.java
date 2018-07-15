@@ -11,6 +11,7 @@ public class FileContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         String uploadPath = sce.getServletContext().getRealPath(UPLOAD);
+        System.out.println(uploadPath);
         File file = new File(uploadPath);
         if(!file.exists()){
             file.mkdirs();

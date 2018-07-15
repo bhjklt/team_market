@@ -1,5 +1,6 @@
 package team.market.merchant.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import team.market.common.annontation.ColumnIgnore;
 import team.market.common.annontation.ColumnName;
 import team.market.common.annontation.Table;
@@ -97,11 +98,13 @@ public class User implements Serializable, AuthorizingInfo {
         this.createTime = createTime;
     }
 
+    @JsonIgnore
     @ColumnIgnore
     public String getPrincipal() {
         return this.username;
     }
 
+    @JsonIgnore
     @ColumnIgnore
     public String getCredentials() {
         return this.password;
