@@ -52,10 +52,8 @@
             <td><input type="submit" value="提交" /> </td>
             <td><input type="reset" value="重置" /></td>
         </tr>
-        <tr>
-            <td>${error}</td>
-        </tr>
     </table>
+    <p>${error}<p>
 </form>
 </body>
 </html>

@@ -3,7 +3,26 @@
 
 
   <display-name>Archetype Created Web Application</display-name>
+  
+  
+  <listener>
+    <listener-class>team.market.merchant.listener.FileContextListener</listener-class>
+  </listener>
 
+  <listener>
+    <listener-class>team.market.common.manager.listener.ContextListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>team.market.common.manager.listener.RequestListener</listener-class>
+  </listener>
+
+  <listener>
+    <listener-class>team.market.common.auth.listener.SecurityContextListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>team.market.common.auth.listener.SecurityRequestAndSessionListener</listener-class>
+  </listener>
+  
   <servlet>
     <servlet-name>UserServlet</servlet-name>
     <servlet-class>team.market.merchant.servlet.UserServlet</servlet-class>
