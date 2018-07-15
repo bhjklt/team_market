@@ -23,13 +23,13 @@ public class JDBCRealm implements AuthorizingRealm {
 
     @Override
     public boolean isPermitted(Permission permission) {
-        Map<String, String> conditions = new HashMap<>();
+        Map<String, String> conditions = new HashMap<String, String>();
         conditions.put("permission", permission.getPermission());
         List<Permission> permissions = permissionDao.findByCondition(conditions);
         if (permissions.size() > 0) {
             conditions.clear();
             conditions.put("pid", permissions.get(0).getId());
-            conditions.put("user_id", ((User)SecurityUtils.getSubject().getAuthorizingInfo()).getId());
+            conditions.put("user_id", ((User) SecurityUtils.getSubject().getAuthorizingInfo()).getId());
             List<UserPermission> userPermissions = userPermissionDao.findByCondition(conditions);
             if (userPermissions.size() > 0) {
                 return true;
@@ -40,7 +40,7 @@ public class JDBCRealm implements AuthorizingRealm {
 
     @Override
     public boolean isPermittedAll(Set<Permission> permissions) {
-        for (Permission permission: permissions) {
+        for (Permission permission : permissions) {
             if (!isPermitted(permission))
                 return false;
         }
@@ -59,7 +59,7 @@ public class JDBCRealm implements AuthorizingRealm {
 
     @Override
     public AuthorizingInfo getAuthorizingInfo(AuthenticationToken token) {
-        Map<String, String> conditions = new HashMap<>();
+        Map<String, String> conditions = new HashMap<String, String>();
         conditions.put("username", ((UsernamePasswordToken) token).getPrincipal());
         List<User> users = userDao.findByCondition(conditions);
         if (users.size() == 0) {

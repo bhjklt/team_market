@@ -19,6 +19,10 @@
     <listener-class>team.market.common.auth.listener.SecurityRequestAndSessionListener</listener-class>
   </listener>
 
+  <listener>
+    <listener-class>team.market.administrator.listener.JmsListener</listener-class>
+  </listener>
+
 
   <servlet>
     <servlet-name>TestServlet</servlet-name>
