@@ -2,6 +2,8 @@ package team.martket.common.util;
 
 import org.junit.Test;
 import team.market.common.util.JMSClient;
+import team.market.common.util.JmsReceiver;
+import team.market.common.util.JmsSender;
 
 /**
  * @ Author     ：LILA3
@@ -10,13 +12,13 @@ import team.market.common.util.JMSClient;
 public class JMSUtilTest {
     @Test
     public void testSend(){
-        JMSClient jsclient = new JMSClient();
-        jsclient.sendMessage("lance.queue", "aasacsac");
+        JmsSender jmsSender = new JmsSender();
+        jmsSender.sendMessage("lance.queue", "aasacsac");
     }
 
     @Test
     public void testRec(){
-        JMSClient jsclient = new JMSClient();
-        System.out.println(jsclient.receiveMessage("lance.queue"));
+        JmsReceiver jmsReceiver = new JmsReceiver();
+        System.out.println(jmsReceiver.receiveMessage("lance.queue"));
     }
 }

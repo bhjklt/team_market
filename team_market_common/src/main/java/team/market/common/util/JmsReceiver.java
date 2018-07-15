@@ -43,6 +43,8 @@ public class JmsReceiver {
                 receiveQueues.put(queueName, messageConsumer);
             }
             TextMessage data = (TextMessage) messageConsumer.receive();
+            data.acknowledge();
+            System.out.println("receive :" + data);
             return data.getText();
         } catch (JMSException e) {
             e.printStackTrace();

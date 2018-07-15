@@ -30,7 +30,7 @@
   </listener>
 
   <listener>
-    <listener-class>team.market.administrator.listener.JmsListener</listener-class>
+    <listener-class>team.market.administrator.listener.JmsContextListener</listener-class>
   </listener>
 
 

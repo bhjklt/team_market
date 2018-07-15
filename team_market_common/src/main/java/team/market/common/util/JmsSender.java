@@ -37,13 +37,14 @@ public class JmsSender {
             MessageProducer messageProducer = null;
             if (sendQueues.containsKey(queueName)) {
                 messageProducer = sendQueues.get(queueName);
-                System.out.println("send msg = " + data);
+
             } else {
                 Destination queue = new ActiveMQQueue(queueName);
                 messageProducer = session.createProducer(queue);
                 sendQueues.put(queueName, messageProducer);
             }
             messageProducer.send(session.createTextMessage(data));
+            System.out.println("send msg = " + data);
         } catch (JMSException e) {
             e.printStackTrace();
         }

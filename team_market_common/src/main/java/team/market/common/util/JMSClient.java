@@ -2,7 +2,6 @@ package team.market.common.util;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
-import org.apache.camel.Producer;
 
 import javax.jms.*;
 import java.util.Map;
@@ -68,6 +67,22 @@ public class JMSClient {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void receiveMessage(MessageListener listener, String queueName) {
+        try {
+            MessageConsumer messageConsumer = null;
+            if (sendQueues.containsKey(queueName)) {
+                messageConsumer = receiveQueues.get(queueName);
+            } else {
+                Destination queue = new ActiveMQQueue(queueName);
+                messageConsumer = session.createConsumer(queue);
+                receiveQueues.put(queueName, messageConsumer);
+            }
+            messageConsumer.setMessageListener(listener);
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
     }
 
     public void close() {

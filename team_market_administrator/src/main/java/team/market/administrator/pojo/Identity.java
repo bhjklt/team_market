@@ -6,6 +6,7 @@ public class Identity {
     public final static Integer BINDING = 0x01;
     public final static Integer FORBIDDEN = 0x02;
 
+    private String id;
     private String name;
     private String idCardNumber;
     private String idCardPic;
@@ -15,7 +16,8 @@ public class Identity {
 
     }
 
-    public Identity(String name, String idCardNumber, String idCardPic, Integer status) {
+    public Identity(String id, String name, String idCardNumber, String idCardPic, Integer status) {
+        this.id = id;
         this.name = name;
         this.idCardNumber = idCardNumber;
         this.idCardPic = idCardPic;
@@ -54,4 +56,11 @@ public class Identity {
         this.status = status;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }
