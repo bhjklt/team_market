@@ -1,11 +1,19 @@
 package team.market.common.servlet;
 
+import team.market.common.annontation.RequiresPermission;
+import team.market.common.auth.SecurityUtils;
+import team.market.common.auth.Subject;
+import team.market.common.auth.exception.UnauthorizedException;
+import team.market.common.auth.pojo.Permission;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class BaseServlet extends HttpServlet {
 
@@ -21,7 +29,12 @@ public abstract class BaseServlet extends HttpServlet {
 		Method method = null;
 		try {
 			method = this.getClass().getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
+			validatePermission(method);
+		}catch (UnauthorizedException e) {
+			e.printStackTrace();
+			throw new UnauthorizedException();
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RuntimeException(methodName + "(HttpServletRequest,HttpServletResponse) Not Found");
 		}
 		
@@ -46,7 +59,30 @@ public abstract class BaseServlet extends HttpServlet {
 			}
 		} catch (Exception e) {
 			System.out.println( methodName + " Internal Error");
+			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 	}
+
+
+	private void validatePermission(Method method) throws UnauthorizedException {
+		RequiresPermission permission = method.getAnnotation(RequiresPermission.class);
+		Subject subject = SecurityUtils.getSubject();
+		if(permission != null && subject != null) {
+			String value = permission.value();
+			if (value.contains(",")) {
+				String[] permissions = value.split(",");
+				Set<Permission> pSet = new HashSet<Permission>();
+				for (String p : permissions) {
+					pSet.add(new Permission(p.trim()));
+				}
+				subject.checkPermissions(pSet);
+			} else {
+				subject.checkPermission(new Permission(value.trim()));
+			}
+		}
+
+    }
+
+
 }
