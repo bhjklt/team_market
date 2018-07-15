@@ -8,28 +8,21 @@ import team.market.customer.pojo.Product;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDaoImpl extends BaseDaoImpl<Product,String> implements ProductDao {
 
     @Override
     public List<Product> findProductsBySid(String sid) {
-        List<Product> products = null;
-        Product product = null;
+        List<Product> products = new ArrayList<>();
         String sql = "select * from mc_product where sid = ?";
         try {
             PreparedStatement statement = ConnectionManager.getInstance().prepareStatement(sql);
             statement.setString(1,sid);
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
-                product.setId(rs.getString("id"));
-                product.setsId(rs.getString("sid"));
-                product.setName(rs.getString("name"));
-                product.setDescription(rs.getString("description"));
-                product.setImages(rs.getString("images"));
-                product.setPrice(rs.getDouble("price"));
-                product.setQuantity(rs.getInt("quantity"));
-                product.setCreateTime(rs.getDate("create_time"));
+                Product product = new Product(rs.getString("id"),rs.getString("sid"),rs.getString("name"),rs.getString("description"),rs.getString("images"),rs.getDouble("price"),rs.getInt("quantity"),rs.getDate("create_time"));
                 products.add(product);
             }
         } catch (SQLException e) {

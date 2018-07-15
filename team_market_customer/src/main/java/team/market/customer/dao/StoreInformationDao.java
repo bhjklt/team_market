@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface StoreInformationDao extends BaseDao<StoreInformation,String> {
 
-    public List<StoreInformation> findStoreInformationList(String[] sids);
+    public List<StoreInformation> findStoreInformationsBySids(List<String> sids);
 
 }

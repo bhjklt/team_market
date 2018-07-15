@@ -9,35 +9,29 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StoreInformationDaoImpl extends BaseDaoImpl<StoreInformation,String> implements StoreInformationDao {
 
     @Override
-    public List<StoreInformation> findStoreInformationList(String[] sids) {
-        List<StoreInformation> storeInformations = null;
-        StoreInformation storeInformation = null;
+    public List<StoreInformation> findStoreInformationsBySids(List<String> sids) {
+        List<StoreInformation> storeInformations = new ArrayList<>();
         StringBuffer buffer = new StringBuffer();
-        for (int i = 0; i<sids.length; i++) {
-                buffer.append("?,");
+        for (int i = 0; i<sids.size(); i++) {
+            buffer.append("?,");
         }
         String sidsStr = buffer.toString();
         sidsStr = sidsStr.substring(0,sidsStr.length()-1);
-        String sql = "select * from mc_storeinformation where id in ("+sidsStr+")";
+        String sql = "select * from mc_storeinformation where sid in ("+sidsStr+")";
         try {
             PreparedStatement statement = ConnectionManager.getInstance().prepareStatement(sql);
-            for (int i = 0; i<sids.length; i++) {
-                statement.setString(i+1,sids[i]);
+            for (int i = 0; i<sids.size(); i++) {
+                statement.setString(i+1,sids.get(i));
             }
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
-                storeInformation.setId(rs.getString("id"));
-                storeInformation.setsId(rs.getString("sid"));
-                storeInformation.setOpen(rs.getString("open"));
-                storeInformation.setClose(rs.getString("close"));
-                storeInformation.setDeliveryArea(rs.getDouble("deliveryArea"));
-                storeInformation.setDescription(rs.getString("description"));
-                storeInformation.setImages(rs.getString("images"));
+                StoreInformation storeInformation = new StoreInformation(rs.getString("id"),rs.getString("sid"),rs.getString("open"),rs.getString("close"),rs.getDouble("delivery_area"),rs.getString("description"),rs.getString("images"));
                 storeInformations.add(storeInformation);
             }
         } catch (SQLException e) {
