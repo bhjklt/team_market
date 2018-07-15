@@ -5,6 +5,16 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
 
+  <filter>
+    <filter-name>AdminFilter</filter-name>
+    <filter-class>team.market.administrator.filter.AdminFilter</filter-class>
+  </filter>
+<filter-mapping>
+  <filter-name>AdminFilter</filter-name>
+  <url-pattern>/admin/*</url-pattern>
+</filter-mapping>
+
+
   <listener>
     <listener-class>team.market.common.manager.listener.ContextListener</listener-class>
   </listener>
@@ -28,9 +38,18 @@
     <servlet-name>TestServlet</servlet-name>
     <servlet-class>team.market.administrator.servlet.TestServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>team.market.administrator.servlet.LoginServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>TestServlet</servlet-name>
     <url-pattern>/test</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/adminLogin</url-pattern>
   </servlet-mapping>
 
 </web-app>
