@@ -1,6 +1,9 @@
 package team.market.common.auth;
 
 import team.market.common.auth.pojo.Permission;
+import team.market.common.auth.pojo.User;
+import team.market.common.auth.pojo.UserPermission;
+import team.market.common.auth.service.UserPermissionService;
 
 import java.util.Set;
 
@@ -8,6 +11,7 @@ public class Subject {
 
     private SecurityManager securityManager;
     private AuthorizingInfo authorizingInfo = null;
+    private static UserPermissionService userPermissionService = new UserPermissionService();
 
     public Subject(SecurityManager securityManager) {
         this.securityManager = securityManager;
@@ -52,6 +56,12 @@ public class Subject {
 
     public boolean isPermittedAll(Set<Permission> permissions) {
         return securityManager.isPermittedAll(permissions);
+    }
+
+    public void addPermission(Permission permission) {
+        if (isLogged()) {
+            userPermissionService.save(new UserPermission(((User)authorizingInfo).getId(), permission.getId()));
+        }
     }
 
 }

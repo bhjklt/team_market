@@ -20,6 +20,10 @@ public class UserPermission implements Serializable {
 
     }
 
+    public UserPermission(String userId, String pId) {
+        this(null, userId, pId, null);
+    }
+
     public UserPermission(String id, String userId, String pId, Date currentTime) {
         this.id = id;
         this.userId = userId;

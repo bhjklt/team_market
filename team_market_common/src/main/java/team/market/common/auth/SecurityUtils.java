@@ -34,8 +34,8 @@ public final class SecurityUtils {
         return subjectConcurrentHashMap.get(ContextManager.getInstance().getSession().getId());
     }
 
-    public static void removeSubject() {
-        subjectConcurrentHashMap.remove(ContextManager.getInstance().getSession().getId());
+    public static void removeSubject(HttpSession session) {
+        subjectConcurrentHashMap.remove(session.getId());
     }
 
 

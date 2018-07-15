@@ -21,7 +21,7 @@ public class SecurityRequestAndSessionListener implements ServletRequestListener
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
-        SecurityUtils.removeSubject();
+        SecurityUtils.removeSubject(se.getSession());
     }
 
 }
