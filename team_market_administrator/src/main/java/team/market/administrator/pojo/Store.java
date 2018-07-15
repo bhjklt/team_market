@@ -1,7 +1,10 @@
 package team.market.administrator.pojo;
 
+import team.market.common.annontation.Table;
+
 import java.io.Serializable;
 
+@Table("A_STORE")
 public class Store implements Serializable {
 
     private static final long serialVersionUID = -8863527932188311011L;
