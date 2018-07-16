@@ -196,9 +196,9 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
             sortSql += " where rownum = " + num;
         }
         if(isAsc){
-            sortSql += "asc";
+            sortSql += " asc";
         }else {
-            sortSql += "desc";
+            sortSql += " desc";
         }
 
         String sql = "select * from " + getTableAnnotation(entityClass).toLowerCase() + " where ";
