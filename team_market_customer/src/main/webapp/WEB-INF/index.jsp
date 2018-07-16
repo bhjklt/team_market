@@ -20,6 +20,12 @@
 <body>
 <h1>Custom Index</h1>
 <hr>
+<h2>商家广告图片</h2>
+<c:forEach items="${pics}" var="pic">
+    <img src="http://10.222.29.157:8080/merchant/upload/${pic}" style="height: 100px;width: 100px;">
+</c:forEach>
+
+<hr>
 <c:forEach items="${storeDetailInfomations}" var="storeDetailInformation">
     <p>商店名称：${storeDetailInformation.name}</p>
     <p>商店地址：${storeDetailInformation.address}</p>
@@ -28,7 +34,7 @@
     <p>关店时间：${storeDetailInformation.close}</p>
     <p>配送范围：${storeDetailInformation.deliveryArea}</p>
     <p>商店描述：${storeDetailInformation.description}</p>
-    <p>商店图片：${storeDetailInformation.images}</p>
+    <img src="http://10.222.29.157:8080/merchant/upload/${storeDetailInformation.images}" style="height: 100px;width: 100px;">
     <a href="<%=basePath%>product?method=getList&sid=${storeDetailInformation.sId}">查看所有菜品</a>
     <hr>
 </c:forEach>

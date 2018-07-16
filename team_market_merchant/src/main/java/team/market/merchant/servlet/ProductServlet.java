@@ -1,22 +1,15 @@
 package team.market.merchant.servlet;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import team.market.common.auth.SecurityUtils;
 import team.market.common.auth.pojo.User;
 import team.market.common.servlet.BaseServlet;
-import team.market.common.util.FileUtil;
-import team.market.common.util.HttpUtil;
-import team.market.common.util.JsonUtil;
-import team.market.common.util.WebUtil;
-import team.market.merchant.dao.impl.ProductDaoImpl;
+import team.market.common.util.*;
 import team.market.merchant.pojo.Product;
 import team.market.merchant.pojo.StoreForm;
-import team.market.merchant.service.ProductService;
 import team.market.merchant.service.ProductServiceImpl;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
@@ -24,15 +17,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Burgess Li
+ */
 public class ProductServlet extends BaseServlet {
 
     private static ProductServiceImpl productService = new ProductServiceImpl();
 
-    private static final String API = "http://10.222.29.195:9090/m/api?method=getStoreForm";
-
     public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        String uploadPath = (String) this.getServletContext().getAttribute("upload");
 
         DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(factory);
@@ -45,7 +37,7 @@ public class ProductServlet extends BaseServlet {
                 params.put(item.getFieldName(), new String[]{item.getString("UTF-8")});
             } else {
                 InputStream in = item.getInputStream();
-                String newFileName = FileUtil.copyFileInput(in, uploadPath, item.getName());
+                String newFileName = FileUtil.copyFileInput(in, FileUtil.getUploadFolder().getAbsolutePath(), item.getName());
                 params.put(item.getFieldName(), new String[]{newFileName});
             }
         }
@@ -54,7 +46,7 @@ public class ProductServlet extends BaseServlet {
 
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("USER_ID", ((User)SecurityUtils.getSubject().getAuthorizingInfo()).getId());
-        String storeFormJson  = HttpUtil.doPost(API, reqParams);
+        String storeFormJson  = HttpUtil.doPost(API.GET_STORE_FORM, reqParams);
 
 
         if (!storeFormJson.isEmpty()) {
@@ -72,7 +64,7 @@ public class ProductServlet extends BaseServlet {
 
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("USER_ID", ((User)SecurityUtils.getSubject().getAuthorizingInfo()).getId());
-        String storeFormJson  = HttpUtil.doPost(API, reqParams);
+        String storeFormJson  = HttpUtil.doPost(API.GET_STORE_FORM, reqParams);
 
 
         if (!storeFormJson.isEmpty()) {

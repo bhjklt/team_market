@@ -34,21 +34,21 @@ public class AdFormService {
         List<AdForm> allAd = getAllAd();
         for (AdForm ad : allAd){
             if(ad.getConsumeTime() != null && !"".equals(ad.getConsumeTime()) && ad.getConsumeUId() != null){
-                User admin = new AdminService().getUser(ad.getConsumeUId());
                 Store store = new StoreService().getStoreById(ad.getsId());
-                adStores.add(new AdStore(ad,store,admin));
+                adStores.add(new AdStore(ad,store,null));
             }
         }
         Collections.sort(adStores, new Comparator<AdStore>() {
             @Override
             public int compare(AdStore o1, AdStore o2) {
-                return o1.getAdForm().getConsumeTime().compareTo(o2.getAdForm().getConsumeTime());
+                return o1.getAdForm().getConsumeTime().getTime() >= o2.getAdForm().getConsumeTime().getTime() ? -1 : 1;
             }
         });
         List<AdStore> result = new LinkedList<AdStore>();
         for (int i = 0; i < 3; i++){
             if(adStores.size() > i){
                 result.add(adStores.get(i));
+                System.out.println(adStores.get(i).getAdForm().getConsumeTime());
             }
         }
         return result;

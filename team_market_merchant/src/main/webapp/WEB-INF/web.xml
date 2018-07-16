@@ -83,5 +83,24 @@
     <url-pattern>/ad</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>StoreInformationServlet</servlet-name>
+    <servlet-class>team.market.merchant.servlet.StoreInformationServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>StoreInformationServlet</servlet-name>
+    <url-pattern>/store_information</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>StaticResourceServlet</servlet-name>
+    <servlet-class>team.market.merchant.servlet.StaticResourceServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>StaticResourceServlet</servlet-name>
+    <url-pattern>/upload/*</url-pattern>
+  </servlet-mapping>
 
 </web-app>
