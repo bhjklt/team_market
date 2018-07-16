@@ -40,7 +40,7 @@
                     <td><a href="http://localhost:9090/admin?method=confirmAd&id=${ad.adForm.id}">通过</a></td>
                 </c:when>
                 <c:otherwise>
-                    <td></td>
+                    <td style="color: green">已确认</td>
                 </c:otherwise>
             </c:choose>
         </tr>
