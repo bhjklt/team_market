@@ -26,7 +26,7 @@
     <h2>Merchant Dashboard</h2>
 
     <el-menu mode="horizontal" :default-active="activeIndex">
-        <el-menu-item index="1">Dashboard Home</el-menu-item>
+        <el-menu-item index="1"><a href="dashboard?method=index">Dashboard Home</a></el-menu-item>
         <c:if test="${storeForm.storeFormRecord.status == 1}">
             <el-menu-item index="2"><a href="product?method=all" target="_blank">Order Management</a></el-menu-item>
         </c:if>
@@ -55,7 +55,7 @@
             <c:if test="${!createStorePermission}">
                 <h3>Store Information：</h3>
                 <br>
-                <el-form size="small" label-width="150px">
+                <el-form action="storeform?method=apply" size="small" label-width="150px" method="post" enctype="multipart/form-data" >
                     <el-form-item label="FORM ID">
                         <el-input value="${storeForm.storeFormRecord.id}" :disabled="true"></el-input>
                     </el-form-item>
@@ -66,7 +66,7 @@
 
                     <el-form-item label="店铺名称">
                         <c:if test="${storeForm.storeFormRecord.status == 3}">
-                            <el-input value="${storeForm.store.name}"></el-input>
+                            <el-input value="${storeForm.store.name}" name="Store.name"></el-input>
                         </c:if>
                         <c:if test="${storeForm.storeFormRecord.status != 3}">
                             <el-input value="${storeForm.store.name}" :disabled="true"></el-input>
@@ -75,7 +75,7 @@
 
                     <el-form-item label="店铺地址">
                         <c:if test="${storeForm.storeFormRecord.status == 3}">
-                            <el-input value="${storeForm.store.address}"></el-input>
+                            <el-input value="${storeForm.store.address}" name="Store.address"></el-input>
                         </c:if>
                         <c:if test="${storeForm.storeFormRecord.status != 3}">
                             <el-input value="${storeForm.store.address}" :disabled="true"></el-input>
@@ -84,7 +84,7 @@
 
                     <el-form-item label="店铺许可证号">
                         <c:if test="${storeForm.storeFormRecord.status == 3}">
-                            <el-input value="${storeForm.store.license}"></el-input>
+                            <el-input value="${storeForm.store.license}" name="Store.license"></el-input>
                         </c:if>
                         <c:if test="${storeForm.storeFormRecord.status != 3}">
                             <el-input value="${storeForm.store.license}" :disabled="true"></el-input>
@@ -93,7 +93,7 @@
 
                     <el-form-item label="经营者姓名">
                         <c:if test="${storeForm.storeFormRecord.status == 3}">
-                            <el-input value="${storeForm.identity.name}"></el-input>
+                            <el-input value="${storeForm.identity.name}" name="Identity.name"></el-input>
                         </c:if>
                         <c:if test="${storeForm.storeFormRecord.status != 3}">
                             <el-input value="${storeForm.identity.name}" :disabled="true"></el-input>
@@ -102,7 +102,7 @@
 
                     <el-form-item label="经营者证件号">
                         <c:if test="${storeForm.storeFormRecord.status == 3}">
-                            <el-input value="${storeForm.identity.idCardNumber}"></el-input>
+                            <el-input value="${storeForm.identity.idCardNumber}" name="Store.license"></el-input>
                         </c:if>
                         <c:if test="${storeForm.storeFormRecord.status != 3}">
                             <el-input value="${storeForm.identity.idCardNumber}" :disabled="true"></el-input>
@@ -111,7 +111,9 @@
 
                     <el-form-item label="经营者证件照片">
                         <c:if test="${storeForm.storeFormRecord.status == 3}">
-                            <el-input value="${storeForm.identity.idCardPic}"></el-input>
+                            <img src="upload/${storeForm.identity.idCardPic}" alt="">
+                            <el-input value="${storeForm.identity.idCardPic}" :disabled="true" name="Identity.idCardPic"></el-input>
+                            <input type="file" name="idCardPic"/>
                         </c:if>
                         <c:if test="${storeForm.storeFormRecord.status != 3}">
                             <el-input value="${storeForm.identity.idCardPic}" :disabled="true"></el-input>
@@ -156,7 +158,7 @@
                 </c:if>
 
                 <c:if test="${storeForm.storeFormRecord.status == 1}">
-                    <a href="ad_request.jsp"><el-button type="primary">申请广告</el-button></a>
+                    <a href="ad_request.jsp"><el-button type="primary">申请推荐首页</el-button></a>
                 </c:if>
 
             </c:if>

@@ -27,7 +27,7 @@
                 <td>${p.id}</td>
                 <td>${p.name}</td>
                 <td>${p.description}</td>
-                <td>${p.images}</td>
+                <td><img src="http://10.222.29.157:8080/merchant/upload/${p.images}" style="width: 200px; height: 200px;"></td>
                 <td>${p.quantity}</td>
                 <td><a href="product?method=delete&id=${p.id}">delete</a></td>
             </tr>

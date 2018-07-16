@@ -6,14 +6,10 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import team.market.common.auth.SecurityUtils;
 import team.market.common.auth.pojo.User;
 import team.market.common.servlet.BaseServlet;
-import team.market.common.util.FileUtil;
-import team.market.common.util.HttpUtil;
-import team.market.common.util.JsonUtil;
-import team.market.common.util.WebUtil;
+import team.market.common.util.*;
 import team.market.merchant.pojo.StoreForm;
 import team.market.merchant.pojo.StoreInformation;
 import team.market.merchant.service.StoreInformationServiceImpl;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
@@ -21,9 +17,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Burgess Li
+ */
 public class StoreInformationServlet extends BaseServlet {
-
-    private static final String API = "http://10.222.29.195:9090/m/api?method=getStoreForm";
 
     private static StoreInformationServiceImpl storeInformationService = new StoreInformationServiceImpl();
 
@@ -31,7 +28,7 @@ public class StoreInformationServlet extends BaseServlet {
 
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("USER_ID", ((User)SecurityUtils.getSubject().getAuthorizingInfo()).getId());
-        String storeFormJson  = HttpUtil.doPost(API, reqParams);
+        String storeFormJson  = HttpUtil.doPost(API.GET_STORE_FORM, reqParams);
 
 
         StoreInformation storeInformation = null;
@@ -48,8 +45,6 @@ public class StoreInformationServlet extends BaseServlet {
 
     public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        String uploadPath = (String) this.getServletContext().getAttribute("upload");
-
         DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(factory);
         List<FileItem> items = upload.parseRequest(request);
@@ -61,7 +56,7 @@ public class StoreInformationServlet extends BaseServlet {
                 params.put(item.getFieldName(), new String[]{item.getString("UTF-8")});
             } else {
                 InputStream in = item.getInputStream();
-                String newFileName = FileUtil.copyFileInput(in, uploadPath, item.getName());
+                String newFileName = FileUtil.copyFileInput(in, FileUtil.getUploadFolder().getAbsolutePath(), item.getName());
                 params.put(item.getFieldName(), new String[]{newFileName});
             }
         }
@@ -70,7 +65,7 @@ public class StoreInformationServlet extends BaseServlet {
 
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("USER_ID", ((User)SecurityUtils.getSubject().getAuthorizingInfo()).getId());
-        String storeFormJson  = HttpUtil.doPost(API, reqParams);
+        String storeFormJson  = HttpUtil.doPost(API.GET_STORE_FORM, reqParams);
 
 
         if (!storeFormJson.isEmpty()) {
@@ -85,8 +80,6 @@ public class StoreInformationServlet extends BaseServlet {
 
     public String update(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        String uploadPath = (String) this.getServletContext().getAttribute("upload");
-
         DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(factory);
         List<FileItem> items = upload.parseRequest(request);
@@ -98,7 +91,7 @@ public class StoreInformationServlet extends BaseServlet {
                 params.put(item.getFieldName(), new String[]{item.getString("UTF-8")});
             } else if (item.getSize() > 0){
                 InputStream in = item.getInputStream();
-                String newFileName = FileUtil.copyFileInput(in, uploadPath, item.getName());
+                String newFileName = FileUtil.copyFileInput(in, FileUtil.getUploadFolder().getAbsolutePath(), item.getName());
                 params.put(item.getFieldName(), new String[]{newFileName});
             }
         }

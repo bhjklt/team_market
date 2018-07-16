@@ -36,7 +36,7 @@ public class StoreFormServlet extends BaseServlet {
     private CovertParamsToBean cptb = new CovertParamsToBean();
 
     public String  apply(HttpServletRequest req, HttpServletResponse resp) throws Exception{
-        String uploadPath = (String) this.getServletContext().getAttribute("upload");
+        String uploadPath = FileUtil.getUploadFolder().getAbsolutePath();
         FileUpload fUpload = new FileUpload(new DiskFileItemFactory());
 
 
