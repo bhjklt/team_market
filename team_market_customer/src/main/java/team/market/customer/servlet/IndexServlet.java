@@ -3,6 +3,7 @@ package team.market.customer.servlet;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import team.market.common.util.HttpUtil;
+import team.market.common.util.JsonUtil;
 import team.market.customer.dao.StoreInformationDao;
 import team.market.customer.dao.impl.StoreInformationDaoImpl;
 import team.market.customer.pojo.Store;
@@ -23,7 +24,7 @@ import java.util.Map;
  */
 public class IndexServlet extends HttpServlet {
 
-    private final static String url= "http://10.222.29.157:8080/administrator/store?method=available" ;
+    private final static String url= "http://10.222.29.195:9090/store?method=available" ;
 
     private StoreInformationDao storeInformationDao = new StoreInformationDaoImpl();
 
@@ -32,7 +33,13 @@ public class IndexServlet extends HttpServlet {
         System.out.println("json:"+jsons);
         ObjectMapper mapper = new ObjectMapper();
         //A端传过来的store集合
-        List<Store> stores = mapper.readValue(jsons,new TypeReference<List<Store>>(){});
+        List<Store> stores = null;
+        try {
+            stores = JsonUtil.json2list(jsons,Store.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //mapper.readValue(jsons,new TypeReference<List<Store>>(){});
         List<String> sids = new ArrayList<String>();
         for (int i =0; i<stores.size(); i++) {
             sids.add(stores.get(i).getId());
@@ -66,6 +73,8 @@ public class IndexServlet extends HttpServlet {
         }
         return  storeDetailInfomations;
     }
+
+
 
     public class StoreDetailInfomation{
         private String sId;
