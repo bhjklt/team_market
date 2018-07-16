@@ -5,6 +5,7 @@ import team.market.common.auth.Subject;
 import team.market.common.auth.UsernamePasswordToken;
 import team.market.common.auth.exception.UnknownAccountException;
 import team.market.common.auth.pojo.Permission;
+import team.market.common.util.Md5Utils;
 import team.market.merchant.pojo.User;
 import team.market.common.servlet.BaseServlet;
 import team.market.merchant.dao.UserDao;
@@ -35,7 +36,7 @@ public class UserServlet extends BaseServlet {
         String result = INDEX_HTML;
         if(username!=null&&password!=null){
             try {
-                subject.login(new UsernamePasswordToken(username,password));
+                subject.login(new UsernamePasswordToken(username,Md5Utils.md5Password(password)));
                 if(subject.isLogged()){
                     req.removeAttribute("login.jsp");
                     result = CENTER_HTML;
@@ -66,7 +67,7 @@ public class UserServlet extends BaseServlet {
             User user = userService.addUser(newUser);
             if(user!=null){
                 Subject subject = SecurityUtils.getSubject();
-                subject.login(new UsernamePasswordToken(username,password));
+                subject.login(new UsernamePasswordToken(username,Md5Utils.md5Password(password)));
                 subject.addPermission(Permission.DefaultPermission.CREATE_STORE);
                 result = CENTER_HTML;
             }

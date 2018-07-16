@@ -1,5 +1,6 @@
 package team.market.merchant.service;
 
+import team.market.common.util.Md5Utils;
 import team.market.common.util.UUIDUtils;
 import team.market.merchant.dao.UserDao;
 import team.market.merchant.dao.impl.UserDaoImpl;
@@ -22,6 +23,7 @@ public class UserServiceImpl implements UserService{
         if(list.size()==0){
             user.setId(UUIDUtils.getUUID());
             user.setStatus(User.NORMAL);
+            user.setPassword(Md5Utils.md5Password(user.getPassword()));
             user.setType(User.MERCHANT_USER);
             return  userDao.save(user);
         }
