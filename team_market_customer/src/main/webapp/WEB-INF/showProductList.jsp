@@ -21,7 +21,8 @@
     <p>商家ID：${product.sId}</p>
     <p>菜品名称：${product.name}</p>
     <p>菜品描述：${product.description}</p>
-    <p>菜品图片：${product.images}</p>
+    <%--<p>菜品图片：${product.images}</p>--%>
+    <img src="http://10.222.29.157:8080/merchant/upload/${product.images}" style="height: 100px;width: 100px;">
     <p>菜品价格：${product.price}</p>
     <p>菜品数量：${product.quantity}</p>
     <p>创建时间：${product.createTime}</p>

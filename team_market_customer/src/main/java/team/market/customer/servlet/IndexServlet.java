@@ -6,7 +6,7 @@ import team.market.common.util.HttpUtil;
 import team.market.common.util.JsonUtil;
 import team.market.customer.dao.StoreInformationDao;
 import team.market.customer.dao.impl.StoreInformationDaoImpl;
-import team.market.customer.pojo.AdForm;
+import team.market.customer.pojo.AdStore;
 import team.market.customer.pojo.Store;
 import team.market.customer.pojo.StoreInformation;
 
@@ -27,38 +27,38 @@ public class IndexServlet extends HttpServlet {
 
     private final static String urlGetStore= "http://10.222.29.195:9090/store?method=available" ;
 
-    private final static String urlGetADForm= "http://localhost:9090/c/api?method=getAd";
+    private final static String urlGetADStore= "http://10.222.29.196:9090/c/api?method=getAd";
 
     private StoreInformationDao storeInformationDao = new StoreInformationDaoImpl();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String jsonsADForm = HttpUtil.doGet(urlGetADForm);
-        System.out.println("jsonsADForm:"+jsonsADForm);
+        String jsonsAdStore = HttpUtil.doGet(urlGetADStore);
+        System.out.println("jsonsAdStore:"+jsonsAdStore);
 
         String jsonsStore = HttpUtil.doGet(urlGetStore);
         System.out.println("jsonsStore:"+jsonsStore);
 
         //A端传过来的store集合
-        List<AdForm> adForms = null;
-        List<Store> stores = null;
+        List<AdStore> adStores = new ArrayList<AdStore>();
+        List<Store> stores = new ArrayList<Store>();
         try {
-            adForms = JsonUtil.json2list(jsonsADForm, AdForm.class);
+            adStores = JsonUtil.json2list(jsonsAdStore, AdStore.class);
             stores = JsonUtil.json2list(jsonsStore,Store.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
         //mapper.readValue(jsons,new TypeReference<List<Store>>(){});
-        List<String> sidsADForm = new ArrayList<String>();
+        List<String> sidsADStore = new ArrayList<String>();
         List<String> sidsStore = new ArrayList<String>();
-        for (int i =0; i<adForms.size(); i++) {
-            sidsADForm.add(adForms.get(i).getsId());
+        for (int i =0; i<adStores.size(); i++) {
+            sidsADStore.add(adStores.get(i).getAdForm().getsId());
         }
-        for (int i =0; i<stores.size(); i++) {
-            sidsStore.add(stores.get(i).getId());
+        for (int j =0; j<stores.size(); j++) {
+            sidsStore.add(stores.get(j).getId());
         }
 
         //MC端查询出对应的storeInformation集合
-        List<StoreInformation> storeInformationsByADForm = storeInformationDao.findStoreInformationsBySids(sidsADForm);
+        List<StoreInformation> storeInformationsByADForm = storeInformationDao.findStoreInformationsBySids(sidsADStore);
         List<StoreInformation> storeInformationsByStore = storeInformationDao.findStoreInformationsBySids(sidsStore);
 
         //组装自荐的商家图片集合
