@@ -3,6 +3,7 @@ package team.market.merchant.util;
 
 
 import team.market.common.util.UUIDUtils;
+import team.market.common.util.ValidationUtil;
 import team.market.merchant.pojo.Identity;
 import team.market.merchant.pojo.Store;
 import team.market.merchant.pojo.StoreForm;
@@ -28,7 +29,7 @@ public class CovertParamsToBean {
             store.setStatus(Store.AVAILABLE);
             identity.setName((String)params.get("Identity.name"));
             identity.setIdCardNumber((String)params.get("Identity.idCardNumber"));
-            identity.setIdCardPic((String)params.get("Identity.idCardPic"));
+            String Idcard = (String)params.get("Identity.idCardNumber");
             identity.setId(UUIDUtils.getUUID());
             identity.setStatus(Identity.NORMAL);
             storeForm.setStore(store);
