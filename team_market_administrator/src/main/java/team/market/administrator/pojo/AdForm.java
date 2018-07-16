@@ -1,8 +1,13 @@
 package team.market.administrator.pojo;
 
-import java.io.Serializable;
-import java.util.Date;
+import team.market.common.annontation.ColumnIgnore;
+import team.market.common.annontation.ColumnName;
+import team.market.common.annontation.Table;
 
+import java.io.Serializable;
+import java.sql.Date;
+
+@Table("A_AD_FORM")
 public class AdForm implements Serializable {
 
     private static final long serialVersionUID = 1973194382458528986L;
@@ -50,26 +55,27 @@ public class AdForm implements Serializable {
         this.price = price;
     }
 
+    @ColumnName("CREATE_TIME")
     public Date getCreateTime() {
         return createTime;
     }
-
+    @ColumnName("CREATE_TIME")
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-
+    @ColumnName("CONSUME_TIME")
     public Date getConsumeTime() {
         return consumeTime;
     }
-
+    @ColumnName("CONSUME_TIME")
     public void setConsumeTime(Date consumeTime) {
         this.consumeTime = consumeTime;
     }
-
+    @ColumnName("CONSUME_UID")
     public String getConsumeUId() {
         return consumeUId;
     }
-
+    @ColumnName("CONSUME_UID")
     public void setConsumeUId(String consumeUId) {
         this.consumeUId = consumeUId;
     }

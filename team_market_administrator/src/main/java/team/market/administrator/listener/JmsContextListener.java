@@ -1,12 +1,6 @@
 package team.market.administrator.listener;
 
 import team.market.common.util.JmsReceiver;
-
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageListener;
-import javax.jms.TextMessage;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -19,6 +13,7 @@ public class JmsContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         JmsReceiver jmsReceiver = new JmsReceiver();
         jmsReceiver.receiveMessage(new StoreFormListener(), "lance.queue");
+        jmsReceiver.receiveMessage(new ADFormListener(), "ad.queue");
     }
 
     @Override

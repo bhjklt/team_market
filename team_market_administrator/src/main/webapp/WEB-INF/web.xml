@@ -55,6 +55,12 @@
   </servlet>
 
 
+  <servlet>
+    <servlet-name>CApiServlet</servlet-name>
+    <servlet-class>team.market.administrator.servlet.CApiServlet</servlet-class>
+  </servlet>
+
+
   <servlet-mapping>
     <servlet-name>TestServlet</servlet-name>
     <url-pattern>/test</url-pattern>
@@ -67,6 +73,12 @@
     <servlet-name>MApiServlet</servlet-name>
     <url-pattern>/m/api</url-pattern>
   </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>CApiServlet</servlet-name>
+    <url-pattern>/c/api</url-pattern>
+  </servlet-mapping>
+
 
   <servlet-mapping>
     <servlet-name>AdminServlet</servlet-name>
