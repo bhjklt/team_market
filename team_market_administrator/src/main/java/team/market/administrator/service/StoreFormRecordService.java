@@ -25,18 +25,23 @@ public class StoreFormRecordService {
     public StoreFormRecord getStoreFormRecordByUid(String user_id) {
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("USER_ID", user_id);
-        List storeRecords = stroeRecordDao.findByCondition(params);
-        if (storeRecords != null && storeRecords.size() > 0) {
-            Collections.sort(storeRecords, new Comparator<StoreFormRecord>() {
-                @Override
-                public int compare(StoreFormRecord o1, StoreFormRecord o2) {
-                    return o1.getCreateTime().compareTo(o2.getCreateTime());
-                }
-            });
-            StoreFormRecord sr = (StoreFormRecord) storeRecords.get(0);
-            return sr;
+        List<StoreFormRecord> rs = stroeRecordDao.findByConWithSort(params, false, "CREATE_TIME", null);
+        if(rs.size() > 0){
+            return rs.get(0);
+        }else{
+            return null;
         }
-        return null;
+//        List storeRecords = stroeRecordDao.findByCondition(params);
+//        if (storeRecords != null && storeRecords.size() > 0) {
+//            Collections.sort(storeRecords, new Comparator<StoreFormRecord>() {
+//                @Override
+//                public int compare(StoreFormRecord o1, StoreFormRecord o2) {
+//                    return o1.getCreateTime().compareTo(o2.getCreateTime());
+//                }
+//            });
+//            StoreFormRecord sr = (StoreFormRecord) storeRecords.get(0);
+//            return sr;
+//        }
     }
 
     public StoreFormRecord getStoreFormRecordById(String id) {
