@@ -1,8 +1,11 @@
 package team.market.merchant.pojo;
 
 
+import team.market.common.annontation.ColumnName;
+import team.market.common.annontation.Table;
 import java.io.Serializable;
 
+@Table("MC_STOREINFORMATION")
 public class StoreInformation implements Serializable {
 
     private static final long serialVersionUID = -3645630957086653497L;
@@ -36,11 +39,11 @@ public class StoreInformation implements Serializable {
         this.id = id;
     }
 
-    public String getsId() {
+    public String getSId() {
         return sId;
     }
 
-    public void setsId(String sId) {
+    public void setSId(String sId) {
         this.sId = sId;
     }
 
@@ -60,10 +63,12 @@ public class StoreInformation implements Serializable {
         this.close = close;
     }
 
+    @ColumnName("delivery_area")
     public Double getDeliveryArea() {
         return deliveryArea;
     }
 
+    @ColumnName("delivery_area")
     public void setDeliveryArea(Double deliveryArea) {
         this.deliveryArea = deliveryArea;
     }
