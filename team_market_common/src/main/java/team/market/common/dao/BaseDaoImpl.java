@@ -193,7 +193,7 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
         }
         String sortSql = "select * from ( %s ) t " ;
         if(num != null){
-            sortSql += " where rownum = " + num;
+            sortSql += " where rownum <= " + num;
         }
 
 
