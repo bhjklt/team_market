@@ -27,48 +27,47 @@ public class IndexServlet extends HttpServlet {
 
     private final static String urlGetStore= "http://10.222.29.195:9090/store?method=available" ;
 
-    private final static String urlGetADStore= "http://10.222.29.196:9090/c/api?method=getAd";
+    private final static String urlGetADStore= "http://10.222.29.195:9090/c/api?method=getAd";
 
     private StoreInformationDao storeInformationDao = new StoreInformationDaoImpl();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String jsonsAdStore = HttpUtil.doGet(urlGetADStore);
-        System.out.println("jsonsAdStore:"+jsonsAdStore);
-
-        String jsonsStore = HttpUtil.doGet(urlGetStore);
-        System.out.println("jsonsStore:"+jsonsStore);
-
-        //A端传过来的store集合
         List<AdStore> adStores = new ArrayList<AdStore>();
         List<Store> stores = new ArrayList<Store>();
+        List<String> sidsADStore = new ArrayList<String>();
+        List<String> sidsStore = new ArrayList<String>();
+
+        String jsonsAdStore = HttpUtil.doGet(urlGetADStore);
+        String jsonsStore = HttpUtil.doGet(urlGetStore);
+        System.out.println("jsonsAdStore:"+jsonsAdStore);
+        System.out.println("jsonsStore:"+jsonsStore);
         try {
-            adStores = JsonUtil.json2list(jsonsAdStore, AdStore.class);
-            stores = JsonUtil.json2list(jsonsStore,Store.class);
+            if(jsonsAdStore!=null&&jsonsAdStore.length()>2){
+                adStores = JsonUtil.json2list(jsonsAdStore, AdStore.class);
+                for (int i =0; i<adStores.size(); i++) {
+                    sidsADStore.add(adStores.get(i).getAdForm().getsId());
+                }
+                List<StoreInformation> storeInformationsByADStore = storeInformationDao.findStoreInformationsBySids(sidsADStore);
+                //组装自荐的商家图片集合
+                List<String> pics = new ArrayList<>();
+                for (StoreInformation storeInformation : storeInformationsByADStore) {
+                    pics.add(storeInformation.getImages());
+                }
+                request.setAttribute("pics",pics);
+            }
+            if(jsonsStore!=null){
+                stores = JsonUtil.json2list(jsonsStore,Store.class);
+                for (int j =0; j<stores.size(); j++) {
+                    sidsStore.add(stores.get(j).getId());
+                }
+                List<StoreInformation> storeInformationsByStore = storeInformationDao.findStoreInformationsBySids(sidsStore);
+                List<StoreDetailInfomation> storeDetailInfomations = packingData(stores,storeInformationsByStore);
+                request.setAttribute("storeDetailInfomations",storeDetailInfomations);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //mapper.readValue(jsons,new TypeReference<List<Store>>(){});
-        List<String> sidsADStore = new ArrayList<String>();
-        List<String> sidsStore = new ArrayList<String>();
-        for (int i =0; i<adStores.size(); i++) {
-            sidsADStore.add(adStores.get(i).getAdForm().getsId());
-        }
-        for (int j =0; j<stores.size(); j++) {
-            sidsStore.add(stores.get(j).getId());
-        }
 
-        //MC端查询出对应的storeInformation集合
-        List<StoreInformation> storeInformationsByADForm = storeInformationDao.findStoreInformationsBySids(sidsADStore);
-        List<StoreInformation> storeInformationsByStore = storeInformationDao.findStoreInformationsBySids(sidsStore);
-
-        //组装自荐的商家图片集合
-        List<String> pics = new ArrayList<>();
-        for (StoreInformation storeInformation : storeInformationsByADForm) {
-            pics.add(storeInformation.getImages());
-        }
-        List<StoreDetailInfomation> storeDetailInfomations = packingData(stores,storeInformationsByStore);
-        request.setAttribute("pics",pics);
-        request.setAttribute("storeDetailInfomations",storeDetailInfomations);
         request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
     }
 
