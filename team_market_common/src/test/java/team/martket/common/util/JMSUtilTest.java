@@ -1,5 +1,6 @@
 package team.martket.common.util;
 
+import org.junit.Assert;
 import org.junit.Test;
 import team.market.common.util.JMSClient;
 import team.market.common.util.JmsReceiver;
@@ -13,12 +14,13 @@ public class JMSUtilTest {
     @Test
     public void testSend(){
         JmsSender jmsSender = new JmsSender();
-        jmsSender.sendMessage("lance.queue", "aasacsac");
+        jmsSender.sendMessage("test.queue", "aasacsac");
     }
 
     @Test
     public void testRec(){
         JmsReceiver jmsReceiver = new JmsReceiver();
-        System.out.println(jmsReceiver.receiveMessage("lance.queue"));
+        String str = jmsReceiver.receiveMessage("test.queue");
+        Assert.assertTrue(str != null);
     }
 }
