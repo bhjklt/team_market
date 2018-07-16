@@ -3,6 +3,7 @@ package team.market.merchant.servlet;
 import team.market.common.auth.SecurityUtils;
 import team.market.common.auth.Subject;
 import team.market.common.auth.UsernamePasswordToken;
+import team.market.common.auth.exception.CredentialsException;
 import team.market.common.auth.exception.UnknownAccountException;
 import team.market.common.auth.pojo.Permission;
 import team.market.common.util.Md5Utils;
@@ -18,6 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
+/**
+ * @author Thomas
+ */
 public class UserServlet extends BaseServlet {
 
     private UserService userService = new UserServiceImpl();
@@ -45,6 +50,8 @@ public class UserServlet extends BaseServlet {
             catch (UnknownAccountException uk){
                 req.setAttribute("login_error",USER_NULL_ERROR);
                 return result;
+            }catch (CredentialsException ce){
+                req.setAttribute("login_error",USER_NULL_ERROR);
             }
         }
         else {
