@@ -15,6 +15,7 @@
     <title>商铺审核</title>
 </head>
 <body>
+<h1>商铺审核</h1>
 <table border="1" class="table">
     <tr>
         <td>商家姓名</td>
