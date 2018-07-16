@@ -22,7 +22,9 @@ public class StoreInformationDaoImpl extends BaseDaoImpl<StoreInformation,String
             buffer.append("?,");
         }
         String sidsStr = buffer.toString();
-        sidsStr = sidsStr.substring(0,sidsStr.length()-1);
+        if(sidsStr.length()>0){
+            sidsStr = sidsStr.substring(0,sidsStr.length()-1);
+        }
         String sql = "select * from mc_storeinformation where sid in ("+sidsStr+")";
         try {
             PreparedStatement statement = ConnectionManager.getInstance().prepareStatement(sql);

@@ -1,30 +1,26 @@
-package team.market.customer.servlet;
+package team.market.customer;
 
-import team.market.common.servlet.BaseServlet;
+import org.junit.Test;
 import team.market.customer.dao.ProductDao;
 import team.market.customer.dao.impl.ProductDaoImpl;
 import team.market.customer.pojo.Product;
 import team.market.customer.service.ProductService;
 import team.market.customer.service.impl.ProductServiceImpl;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProductServlet extends BaseServlet {
+public class ProductTest {
 
     private ProductService productService = new ProductServiceImpl();
 
-    public String getList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String sid = req.getParameter("sid");
+    @Test
+    public void base(){
+        String sid = "e86942ead2f94b2090b03893e9122fd7";
         Map<String,String> map = new HashMap<>();
         map.put("sid",sid);
         List<Product> products = productService.findProductsBySid(sid);
-        req.setAttribute("products",products);
-        return "/WEB-INF/showProductList.jsp";
+        System.out.println(products.size());
     }
 }

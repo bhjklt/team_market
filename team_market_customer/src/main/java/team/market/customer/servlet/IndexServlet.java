@@ -9,6 +9,8 @@ import team.market.customer.dao.impl.StoreInformationDaoImpl;
 import team.market.customer.pojo.AdStore;
 import team.market.customer.pojo.Store;
 import team.market.customer.pojo.StoreInformation;
+import team.market.customer.service.StoreInformationService;
+import team.market.customer.service.impl.StoreInformationServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,7 +31,7 @@ public class IndexServlet extends HttpServlet {
 
     private final static String urlGetADStore= "http://10.222.29.195:9090/c/api?method=getAd";
 
-    private StoreInformationDao storeInformationDao = new StoreInformationDaoImpl();
+    private StoreInformationService storeInformationService = new StoreInformationServiceImpl();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<AdStore> adStores = new ArrayList<AdStore>();
@@ -47,7 +49,7 @@ public class IndexServlet extends HttpServlet {
                 for (int i =0; i<adStores.size(); i++) {
                     sidsADStore.add(adStores.get(i).getAdForm().getsId());
                 }
-                List<StoreInformation> storeInformationsByADStore = storeInformationDao.findStoreInformationsBySids(sidsADStore);
+                List<StoreInformation> storeInformationsByADStore = storeInformationService.findStoreInformationsBySids(sidsADStore);
                 //组装自荐的商家图片集合
                 List<String> pics = new ArrayList<>();
                 for (StoreInformation storeInformation : storeInformationsByADStore) {
@@ -60,7 +62,7 @@ public class IndexServlet extends HttpServlet {
                 for (int j =0; j<stores.size(); j++) {
                     sidsStore.add(stores.get(j).getId());
                 }
-                List<StoreInformation> storeInformationsByStore = storeInformationDao.findStoreInformationsBySids(sidsStore);
+                List<StoreInformation> storeInformationsByStore = storeInformationService.findStoreInformationsBySids(sidsStore);
                 List<StoreDetailInfomation> storeDetailInfomations = packingData(stores,storeInformationsByStore);
                 request.setAttribute("storeDetailInfomations",storeDetailInfomations);
             }
