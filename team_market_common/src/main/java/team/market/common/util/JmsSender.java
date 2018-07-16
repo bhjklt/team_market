@@ -20,6 +20,7 @@ public class JmsSender {
     Map<String, MessageProducer> sendQueues = new ConcurrentHashMap<String, MessageProducer>();
 
     public JmsSender() {
+        //以后读配置文件
         ConnectionFactory factory = new ActiveMQConnectionFactory(url);
         Connection con = null;
         try {

@@ -20,6 +20,7 @@ public class JmsReceiver {
     Map<String, MessageConsumer> receiveQueues = new ConcurrentHashMap<String, MessageConsumer>();
 
     public JmsReceiver() {
+        //以后读配置文件
         ConnectionFactory factory = new ActiveMQConnectionFactory(url);
         Connection con = null;
         try {

@@ -31,7 +31,7 @@
     <tr>
         <td>${record.identity.name}</td>
         <td>${record.identity.idCardNumber}</td>
-        <td>${record.identity.idCardPic}</td>
+        <td> <img style="width: 80px; height:80px" src="http://10.222.29.157:8080/merchant/upload/${record.identity.idCardPic}"></td>
         <td>${record.store.address}</td>
         <td>${record.store.license}</td>
         <c:if test="${record.storeFormRecord.status == 0}">

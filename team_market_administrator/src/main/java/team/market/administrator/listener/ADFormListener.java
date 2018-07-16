@@ -8,6 +8,7 @@ import team.market.common.util.UUIDUtils;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
+import java.sql.Date;
 
 public class ADFormListener implements MessageListener {
     AdFormService adService = new AdFormService();
@@ -17,6 +18,7 @@ public class ADFormListener implements MessageListener {
             String msg = ((TextMessage) message).getText();
             AdForm adForm = JsonUtil.json2pojo(msg, AdForm.class);
             adForm.setId(UUIDUtils.getUUID());
+            adForm.setCreateTime(new Date(System.currentTimeMillis()));
             adService.saveAddForm(adForm);
             message.acknowledge();
         } catch (Exception e) {

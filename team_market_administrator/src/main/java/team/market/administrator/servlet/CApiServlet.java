@@ -11,6 +11,12 @@ import java.util.List;
 
 public class CApiServlet extends BaseServlet {
 
+    /**
+     * 获取广告信息
+     * @param req
+     * @param resp
+     * @throws Exception
+     */
     public void getAd(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         AdFormService adFormService = new AdFormService();
         List<AdStore> confirmAd = adFormService.getConfirmAd();

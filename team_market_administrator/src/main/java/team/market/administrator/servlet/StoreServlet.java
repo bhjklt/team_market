@@ -12,6 +12,12 @@ public class StoreServlet extends BaseServlet {
 
     private static StoreService storeService = new StoreService();
 
+    /**
+     * 获取stroe信息
+     * @param request
+     * @param response
+     * @throws Exception
+     */
     public void available(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         response.setContentType("text/json");
