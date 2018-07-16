@@ -148,6 +148,10 @@
                 </el-form>
 
                 <c:if test="${storeForm.storeFormRecord.status == 1}">
+                    <a href="store_information?method=index"><el-button type="primary">管理店铺信息</el-button></a>
+                </c:if>
+
+                <c:if test="${storeForm.storeFormRecord.status == 1}">
                     <a href="add_product.jsp"><el-button type="primary">添加菜品</el-button></a>
                 </c:if>
 

@@ -7,6 +7,7 @@ import team.market.common.auth.SecurityUtils;
 import team.market.common.auth.Subject;
 import team.market.common.manager.ContextManager;
 import team.market.common.servlet.BaseServlet;
+import team.market.common.util.Md5Utils;
 import team.market.common.util.WebUtil;
 
 import javax.servlet.ServletException;
@@ -25,13 +26,18 @@ public class LoginServlet extends BaseServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        boolean isLogin = service.login(admin);
-        if(!isLogin){
+        admin.setPassword(Md5Utils.md5Password(admin.getPassword()));
+        if(admin.getUsername() == null || admin.getPassword() == null || "".equals(admin.getUsername().trim()) || "".equals(admin.getPassword().trim())){
+            req.setAttribute("errorMsg","用户名或密码为空");
+            return "/adminLogin.jsp";
+        }
+        User adminUser =  service.login(admin);
+        if(adminUser == null){
             req.setAttribute("errorMsg","用户名或密码错误");
             return "/adminLogin.jsp";
         }
         HttpSession session = req.getSession();
-        session.setAttribute("admin",admin);
+        session.setAttribute("admin",adminUser);
         return "r:/admin/index.jsp";
     }
 

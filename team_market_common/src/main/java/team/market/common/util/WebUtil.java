@@ -2,6 +2,7 @@ package team.market.common.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -46,7 +47,7 @@ public class WebUtil {
                         method.invoke(parent, values == null ? null : Boolean.valueOf(values[0]));
                         break;
                     default:
-                        if (field.getType() != Set.class && field.getType() != List.class) {
+                        if (field.getType() != Set.class && field.getType() != List.class && field.getType() != Date.class) {
                             Object obj = field.getType().newInstance();
                             parseRequest(obj, map, field.getType());
                             method.invoke(parent, obj);
