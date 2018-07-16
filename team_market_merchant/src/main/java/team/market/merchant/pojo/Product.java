@@ -1,9 +1,14 @@
 package team.market.merchant.pojo;
 
 
+import team.market.common.annontation.ColumnIgnore;
+import team.market.common.annontation.ColumnName;
+import team.market.common.annontation.Table;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@Table("MC_PRODUCT")
 public class Product implements Serializable {
 
     private static final long serialVersionUID = -8281539444668575519L;
@@ -87,10 +92,12 @@ public class Product implements Serializable {
         this.quantity = quantity;
     }
 
+    @ColumnIgnore
     public Date getCreateTime() {
         return createTime;
     }
 
+    @ColumnName("create_time")
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }

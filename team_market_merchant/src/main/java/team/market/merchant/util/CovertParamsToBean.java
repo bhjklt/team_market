@@ -7,9 +7,7 @@ import team.market.merchant.pojo.Identity;
 import team.market.merchant.pojo.Store;
 import team.market.merchant.pojo.StoreForm;
 import team.market.merchant.pojo.User;
-
-
-import java.util.Date;
+import java.sql.Date;
 import java.util.Map;
 
 public class CovertParamsToBean {
@@ -35,7 +33,7 @@ public class CovertParamsToBean {
             identity.setStatus(Identity.NORMAL);
             storeForm.setStore(store);
             storeForm.setIdentity(identity);
-            storeForm.setSubmitTime(new Date());
+            storeForm.setSubmitTime(new Date(System.currentTimeMillis()));
             storeForm.setUser((User)params.get("user"));
 
         }catch (Exception e){

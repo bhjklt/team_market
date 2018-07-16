@@ -64,4 +64,10 @@ public class Subject {
         }
     }
 
+    public void removePermission(Permission permission) {
+        if (isLogged()) {
+            userPermissionService.deleteByUserIdAndPId(((User)authorizingInfo).getId(), permission.getId());
+        }
+    }
+
 }

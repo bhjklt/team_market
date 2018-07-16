@@ -24,8 +24,8 @@ public class UserServlet extends BaseServlet {
     private static final String PARAMS_NULL_ERROR = "用户名或密码不能为空";
     private static final String USER_NULL_ERROR = "用户名或密码错误";
     private static final String USER_MORE_ERROR = "用户名已存在";
-    private static final String INDEX_HTML = "index.jsp";
-    private static final String CENTER_HTML = "center.jsp";
+    private static final String INDEX_HTML = "login.jsp";
+    private static final String CENTER_HTML = "/dashboard?method=index";
     private static final String REGISITER_HTML = "register.jsp";
 
     public String login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,7 +37,7 @@ public class UserServlet extends BaseServlet {
             try {
                 subject.login(new UsernamePasswordToken(username,password));
                 if(subject.isLogged()){
-                    req.removeAttribute("index.jsp");
+                    req.removeAttribute("login.jsp");
                     result = CENTER_HTML;
                 }
             }
@@ -80,4 +80,12 @@ public class UserServlet extends BaseServlet {
         return result;
 
     }
+
+    public String logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        SecurityUtils.getSubject().logout();
+
+        return "/login.jsp";
+    }
+
 }

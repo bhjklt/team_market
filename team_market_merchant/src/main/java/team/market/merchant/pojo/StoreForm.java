@@ -1,8 +1,7 @@
 package team.market.merchant.pojo;
 
 import java.io.Serializable;
-import java.util.Date;
-import team.market.merchant.pojo.User;
+import java.sql.Date;
 
 
 public class StoreForm implements Serializable {
@@ -13,6 +12,7 @@ public class StoreForm implements Serializable {
     private Identity identity;
     private Store store;
     private Date submitTime;
+    private StoreFormRecord storeFormRecord;
 
     public StoreForm() {
     }
@@ -54,6 +54,15 @@ public class StoreForm implements Serializable {
 
     public void setIdentity(Identity identity) {
         this.identity = identity;
+    }
+
+
+    public StoreFormRecord getStoreFormRecord() {
+        return storeFormRecord;
+    }
+
+    public void setStoreFormRecord(StoreFormRecord storeFormRecord) {
+        this.storeFormRecord = storeFormRecord;
     }
 
     @Override

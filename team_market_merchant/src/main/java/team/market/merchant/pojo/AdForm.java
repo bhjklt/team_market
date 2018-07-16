@@ -1,5 +1,7 @@
 package team.market.merchant.pojo;
 
+import team.market.common.annontation.Table;
+
 import java.io.Serializable;
 import java.util.Date;
 

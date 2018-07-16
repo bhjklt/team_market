@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class ApplyFilter implements Filter {
 
-    private final static String INDEX_HTML = "index.jsp";
+    private final static String INDEX_HTML = "login.jsp";
     private final static String NO_LOGIN = "请先登录";
 
     @Override

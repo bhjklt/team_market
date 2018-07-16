@@ -19,5 +19,6 @@
 <body>
 
 <p>申请成功</p>
+<a href="dashboard?method=index">返回</a>
 </body>
 </html>

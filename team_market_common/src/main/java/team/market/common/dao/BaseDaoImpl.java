@@ -56,6 +56,8 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
                     statement.setString(i++, (String) getMethod.invoke(entity));
                 } else if (getMethod.getReturnType().getSimpleName().indexOf("Date") != -1) {
                     statement.setDate(i++, (Date) getMethod.invoke(entity));
+                } else if (getMethod.getReturnType().getSimpleName().indexOf("Double") != -1) {
+                    statement.setDouble(i++, (Double) getMethod.invoke(entity));
                 } else {
                     statement.setInt(i++, (Integer) getMethod.invoke(entity));
                 }

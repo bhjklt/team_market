@@ -8,16 +8,13 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletRequestContext;
 import team.market.common.auth.SecurityUtils;
 import team.market.common.auth.Subject;
-import team.market.common.auth.UsernamePasswordToken;
-
+import team.market.common.auth.pojo.Permission;
 import team.market.common.servlet.BaseServlet;
 import team.market.common.util.FileUtil;
 import team.market.common.util.JmsSender;
 import team.market.merchant.pojo.StoreForm;
-
 import team.market.merchant.pojo.User;
 import team.market.merchant.util.CovertParamsToBean;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
@@ -32,7 +29,7 @@ public class StoreFormServlet extends BaseServlet {
     private static final long MAX_SIZE = 2000000;
     private static final String MQQueue = "lance.queue";
     private static final String APPLY_HTML = "applicant.jsp";
-    private static final String SUCCESS_HTML = "success.jsp";
+    private static final String SUCCESS = "r:/success.jsp";
 
     private CovertParamsToBean cptb = new CovertParamsToBean();
 
@@ -68,10 +65,12 @@ public class StoreFormServlet extends BaseServlet {
                 if (newFileName != null) {
                     paramsMap.put("Identity.idCardPic", newFileName);
                     StoreForm storeForm = cptb.covertParamsToStFo(paramsMap);
+                    storeForm.getIdentity().setUserid(u.getId());
                     ObjectMapper objectMapper = new ObjectMapper();
                     String json = objectMapper.writeValueAsString(storeForm);
                     JmsSender jmsSender = new JmsSender();
                     jmsSender.sendMessage(MQQueue,json);
+                    subject.removePermission(Permission.DefaultPermission.CREATE_STORE);
                 }
             } catch (FileUploadException e) {
                 // TODO Auto-generated catch block
@@ -79,7 +78,7 @@ public class StoreFormServlet extends BaseServlet {
             }
 
 
-        return "r:/"+SUCCESS_HTML;
+        return SUCCESS;
     }
 
 
