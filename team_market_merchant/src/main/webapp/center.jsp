@@ -26,7 +26,7 @@
     <h2>Merchant Dashboard</h2>
 
     <el-menu mode="horizontal" :default-active="activeIndex">
-        <el-menu-item index="1">Dashboard Home</el-menu-item>
+        <el-menu-item index="1"><a href="dashboard?method=index">Dashboard Home</a></el-menu-item>
         <c:if test="${storeForm.storeFormRecord.status == 1}">
             <el-menu-item index="2"><a href="product?method=all" target="_blank">Order Management</a></el-menu-item>
         </c:if>
@@ -158,7 +158,7 @@
                 </c:if>
 
                 <c:if test="${storeForm.storeFormRecord.status == 1}">
-                    <a href="ad_request.jsp"><el-button type="primary">申请广告</el-button></a>
+                    <a href="ad_request.jsp"><el-button type="primary">申请推荐首页</el-button></a>
                 </c:if>
 
             </c:if>

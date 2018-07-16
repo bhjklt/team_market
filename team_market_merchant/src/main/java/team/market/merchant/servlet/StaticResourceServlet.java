@@ -1,5 +1,7 @@
 package team.market.merchant.servlet;
 
+import team.market.common.util.FileUtil;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +14,7 @@ public class StaticResourceServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String fileName = req.getRequestURL().substring(req.getRequestURL().lastIndexOf("/") + 1);
-        File file = new File(new File((String) this.getServletContext().getAttribute("upload")), fileName);
+        File file = new File(FileUtil.getUploadFolder(), fileName);
 
         InputStream is = new FileInputStream(file);
         OutputStream os = resp.getOutputStream();

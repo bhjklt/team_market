@@ -1,8 +1,7 @@
 package team.market.common.util;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.io.InputStream;
+import java.io.*;
+import java.util.Properties;
 
 public class FileUtil {
 
@@ -43,4 +42,23 @@ public class FileUtil {
         }
         return result;
     }
+
+    public static File getUploadFolder() {
+        File file = null;
+        Properties properties = new Properties();
+        try {
+            properties.load(FileUtil.class.getResourceAsStream("/upload_config.properties"));
+            file = new File(properties.getProperty("upload_folder_path"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (file == null) {
+            file = new File("/upload_files");
+        }
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        return file;
+    }
+
 }

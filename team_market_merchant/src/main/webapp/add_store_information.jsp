@@ -22,6 +22,7 @@
             闭店时间：<input type="text" name="StoreInformation.close" value="${storeInformation.close}"><br>
             店铺简介：<input type="text" name="StoreInformation.description" value="${storeInformation.description}"><br>
             配送范围：<input type="text" name="StoreInformation.deliveryArea" value="${storeInformation.deliveryArea}"><br>
+            <img src="http://10.222.29.157:8080/merchant/upload/${storeInformation.images}" style="width: 200px; height: 200px;">
             店铺照片：<input type="file" name="StoreInformation.images" value="${storeInformation.images}"><br>
             <input type="submit" value="更新店铺信息">
 
