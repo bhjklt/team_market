@@ -37,28 +37,5 @@ public class AdFormService {
             adStores.add(new AdStore(ad,store,null));
         }
         return adStores;
-//        List<AdStore> adStores = new ArrayList<AdStore>();
-//        List<AdForm> allAd = getAllAd();
-//        for (AdForm ad : allAd){
-//            if(ad.getConsumeTime() != null && !"".equals(ad.getConsumeTime()) && ad.getConsumeUId() != null){
-//                Store store = new StoreService().getStoreById(ad.getsId());
-//                adStores.add(new AdStore(ad,store,null));
-//            }
-//        }
-//        Collections.sort(adStores, new Comparator<AdStore>() {
-//            @Override
-//            public int compare(AdStore o1, AdStore o2) {
-//                return o1.getAdForm().getConsumeTime().getTime() >= o2.getAdForm().getConsumeTime().getTime() ? -1 : 1;
-//            }
-//        });
-//        List<AdStore> result = new LinkedList<AdStore>();
-//        for (int i = 0; i < 3; i++){
-//            if(adStores.size() > i){
-//                result.add(adStores.get(i));
-//                System.out.println(adStores.get(i).getAdForm().getConsumeTime());
-//            }
-//        }
-//        return result;
-
     }
 }
