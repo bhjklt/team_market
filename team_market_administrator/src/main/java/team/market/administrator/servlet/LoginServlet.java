@@ -17,33 +17,33 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class LoginServlet extends BaseServlet {
+    AdminService service = new AdminService();
 
     public String login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        AdminService service = new AdminService();
         User admin = new User();
         try {
-            admin = (User)WebUtil.parseRequest(admin, req.getParameterMap(), User.class);
+            admin = (User) WebUtil.parseRequest(admin, req.getParameterMap(), User.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
         admin.setPassword(Md5Utils.md5Password(admin.getPassword()));
-        if(admin.getUsername() == null || admin.getPassword() == null || "".equals(admin.getUsername().trim()) || "".equals(admin.getPassword().trim())){
-            req.setAttribute("errorMsg","用户名或密码为空");
+        if (admin.getUsername() == null || admin.getPassword() == null || "".equals(admin.getUsername().trim()) || "".equals(admin.getPassword().trim())) {
+            req.setAttribute("errorMsg", "用户名或密码为空");
             return "/adminLogin.jsp";
         }
-        User adminUser =  service.login(admin);
-        if(adminUser == null){
-            req.setAttribute("errorMsg","用户名或密码错误");
+        User adminUser = service.login(admin);
+        if (adminUser == null) {
+            req.setAttribute("errorMsg", "用户名或密码错误");
             return "/adminLogin.jsp";
         }
         HttpSession session = req.getSession();
-        session.setAttribute("admin",adminUser);
+        session.setAttribute("admin", adminUser);
         return "r:/admin/index.jsp";
     }
 
     public String logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        session.setAttribute("admin",null);
+        session.setAttribute("admin", null);
         return "r:/adminLogin.jsp";
     }
 
