@@ -34,40 +34,45 @@ public class IndexServlet extends HttpServlet {
     private StoreInformationService storeInformationService = new StoreInformationServiceImpl();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<AdStore> adStores = new ArrayList<AdStore>();
-        List<Store> stores = new ArrayList<Store>();
-        List<String> sidsADStore = new ArrayList<String>();
-        List<String> sidsStore = new ArrayList<String>();
-
         String jsonsAdStore = HttpUtil.doGet(urlGetADStore);
         String jsonsStore = HttpUtil.doGet(urlGetStore);
         System.out.println("jsonsAdStore:"+jsonsAdStore);
         System.out.println("jsonsStore:"+jsonsStore);
-        try {
-            if(jsonsAdStore!=null&&jsonsAdStore.length()>2){
+
+        if(jsonsAdStore!=null && jsonsAdStore.length()>2){
+            List<AdStore> adStores = null;
+            try {
                 adStores = JsonUtil.json2list(jsonsAdStore, AdStore.class);
-                for (int i =0; i<adStores.size(); i++) {
-                    sidsADStore.add(adStores.get(i).getAdForm().getsId());
-                }
-                List<StoreInformation> storeInformationsByADStore = storeInformationService.findStoreInformationsBySids(sidsADStore);
-                //组装自荐的商家图片集合
-                List<String> pics = new ArrayList<>();
-                for (StoreInformation storeInformation : storeInformationsByADStore) {
-                    pics.add(storeInformation.getImages());
-                }
-                request.setAttribute("pics",pics);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            if(jsonsStore!=null){
+            List<String> sidsADStore = new ArrayList<String>();
+            for (int i =0; i<adStores.size(); i++) {
+                sidsADStore.add(adStores.get(i).getAdForm().getsId());
+            }
+            List<StoreInformation> storeInformationsByADStore = storeInformationService.findStoreInformationsBySids(sidsADStore);
+            //组装自荐的商家图片集合
+            List<String> pics = new ArrayList<>();
+            for (StoreInformation storeInformation : storeInformationsByADStore) {
+                pics.add(storeInformation.getImages());
+            }
+            request.setAttribute("pics",pics);
+        }
+
+        if(jsonsStore!=null){
+            List<Store> stores = null;
+            try {
                 stores = JsonUtil.json2list(jsonsStore,Store.class);
-                for (int j =0; j<stores.size(); j++) {
-                    sidsStore.add(stores.get(j).getId());
-                }
-                List<StoreInformation> storeInformationsByStore = storeInformationService.findStoreInformationsBySids(sidsStore);
-                List<StoreDetailInfomation> storeDetailInfomations = packingData(stores,storeInformationsByStore);
-                request.setAttribute("storeDetailInfomations",storeDetailInfomations);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            List<String> sidsStore = new ArrayList<String>();
+            for (int j =0; j<stores.size(); j++) {
+                sidsStore.add(stores.get(j).getId());
+            }
+            List<StoreInformation> storeInformationsByStore = storeInformationService.findStoreInformationsBySids(sidsStore);
+            List<StoreDetailInfomation> storeDetailInfomations = packingData(stores,storeInformationsByStore);
+            request.setAttribute("storeDetailInfomations",storeDetailInfomations);
         }
 
         request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);

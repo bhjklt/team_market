@@ -22,9 +22,13 @@ public class ProductDaoImpl extends BaseDaoImpl<Product,String> implements Produ
             statement.setString(1,sid);
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
-                Product product = new Product(rs.getString("id"),rs.getString("sid"),rs.getString("name"),rs.getString("description"),rs.getString("images"),rs.getDouble("price"),rs.getInt("quantity"),rs.getDate("create_time"));
+                Product product = new Product(rs.getString("id"),rs.getString("sid"),rs.getString("name"),
+                        rs.getString("description"),rs.getString("images"),rs.getDouble("price"),
+                        rs.getInt("quantity"),rs.getDate("create_time"));
                 products.add(product);
             }
+            statement.close();
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

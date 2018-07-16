@@ -26,6 +26,8 @@
 </c:forEach>
 
 <hr>
+<h2>商家列表</h2>
+<hr>
 <c:forEach items="${storeDetailInfomations}" var="storeDetailInformation">
     <p>商店名称：${storeDetailInformation.name}</p>
     <p>商店地址：${storeDetailInformation.address}</p>

@@ -33,9 +33,12 @@ public class StoreInformationDaoImpl extends BaseDaoImpl<StoreInformation,String
             }
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
-                StoreInformation storeInformation = new StoreInformation(rs.getString("id"),rs.getString("sid"),rs.getString("open"),rs.getString("close"),rs.getDouble("delivery_area"),rs.getString("description"),rs.getString("images"));
+                StoreInformation storeInformation = new StoreInformation(rs.getString("id"),rs.getString("sid"),rs.getString("open"),
+                        rs.getString("close"),rs.getDouble("delivery_area"),rs.getString("description"),rs.getString("images"));
                 storeInformations.add(storeInformation);
             }
+            statement.close();
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
