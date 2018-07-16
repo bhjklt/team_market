@@ -21,7 +21,7 @@ public abstract class BaseServlet extends HttpServlet {
 
 	public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setCharacterEncoding("UTF-8");
-		resp.setHeader("Content-Type","text/html;chartset=UTF-8");
+		resp.setHeader("Content-Type","text/html;charset=UTF-8");
 		String methodName = req.getParameter("method");
 		
 		if(methodName == null || "".equals(methodName.trim())) {

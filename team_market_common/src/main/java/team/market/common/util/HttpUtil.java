@@ -41,7 +41,7 @@ public class HttpUtil {
                     output.write(buff, 0, len);
                 }
                 output.flush();
-                return output.toString();
+                return output.toString("utf-8");
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block
