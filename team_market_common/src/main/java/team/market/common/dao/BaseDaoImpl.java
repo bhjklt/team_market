@@ -191,15 +191,11 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
         if(sortkey == null){
             return findAll();
         }
-        String sortSql = "select * from ( %s ) t order by " + sortkey + " ";
+        String sortSql = "select * from ( %s ) t " ;
         if(num != null){
             sortSql += " where rownum = " + num;
         }
-        if(isAsc){
-            sortSql += " asc";
-        }else {
-            sortSql += " desc";
-        }
+
 
         String sql = "select * from " + getTableAnnotation(entityClass).toLowerCase() + " where ";
 
@@ -212,6 +208,12 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
         }
 
         sql +=  sortkey + " is not null";
+        sql += " order by " + sortkey;
+        if(isAsc){
+            sql += " asc";
+        }else {
+            sql += " desc";
+        }
         sortSql = String.format(sortSql, sql);
         System.out.println(sortSql);
         try {
