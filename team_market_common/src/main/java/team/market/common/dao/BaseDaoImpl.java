@@ -17,10 +17,7 @@ import java.lang.reflect.Type;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
     private Class<T> entityClass = null;
@@ -106,6 +103,8 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
                     statement.setString(++i, (String) getMethod.invoke(entity));
                 } else if (getMethod.getReturnType().getSimpleName().indexOf("Date") != -1) {
                     statement.setDate(++i, (Date) getMethod.invoke(entity));
+                } else if (getMethod.getReturnType().getSimpleName().indexOf("Double") != -1) {
+                    statement.setDouble(++i, (Double) getMethod.invoke(entity));
                 } else {
                     statement.setInt(++i, (Integer) getMethod.invoke(entity));
                 }
@@ -142,15 +141,81 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 
     @Override
     public List<T> findByCondition(Map map) {
-        String sql = "select * from " + getTableAnnotation(entityClass).toLowerCase() + " where ";
-        Set keys = map.keySet();
-        for (Object key : keys) {
-            sql += key.toString() + " = '" + map.get(key).toString() + "' and ";
+        String sql = "select * from " + getTableAnnotation(entityClass).toLowerCase();
+
+        if (map != null) {
+            sql += " where ";
+            Set keys = map.keySet();
+            for (Object key : keys) {
+                sql += key.toString() + " = '" + map.get(key).toString() + "' and ";
+            }
+            sql = sql.substring(0, sql.indexOf("and"));
         }
-        sql = sql.substring(0, sql.indexOf("and"));
+
         System.out.println(sql);
         try {
             PreparedStatement statement = ConnectionManager.getInstance().prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+
+            int i = 0;
+            List<Method> list = getMethodWithSet(entityClass);
+            List<T> entityLsit = new ArrayList<T>();
+            while (rs.next()) {
+                T entity = entityClass.newInstance();
+                for (Method method : list) {
+
+                    if (method.getParameterTypes()[0].getSimpleName().indexOf("String") != -1) {
+                        method.invoke(entity, rs.getString(getColumnName(method)));
+                    } else if (method.getParameterTypes()[0].getSimpleName().indexOf("Date") != -1) {
+                        method.invoke(entity, rs.getDate(getColumnName(method)));
+
+                    } else if (method.getParameterTypes()[0].getSimpleName().indexOf("Double") != -1) {
+                        method.invoke(entity, rs.getDouble(getColumnName(method)));
+                    } else {
+                        method.invoke(entity, rs.getInt(getColumnName(method)));
+                    }
+                }
+                entityLsit.add(entity);
+            }
+            rs.close();
+            statement.close();
+            return entityLsit;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<T> findByConWithSort(Map map, boolean isAsc, String sortkey, Integer num) {
+        if(sortkey == null){
+            return findAll();
+        }
+        String sortSql = "select * from ( %s ) t order by " + sortkey + " ";
+        if(num != null){
+            sortSql += " where rownum = " + num;
+        }
+        if(isAsc){
+            sortSql += "asc";
+        }else {
+            sortSql += "desc";
+        }
+
+        String sql = "select * from " + getTableAnnotation(entityClass).toLowerCase() + " where ";
+
+        if (map != null) {
+
+            Set keys = map.keySet();
+            for (Object key : keys) {
+                sql += key.toString() + " = '" + map.get(key).toString() + "' and ";
+            }
+        }
+
+        sql +=  sortkey + " is not null";
+        sortSql = String.format(sortSql, sql);
+        System.out.println(sortSql);
+        try {
+            PreparedStatement statement = ConnectionManager.getInstance().prepareStatement(sortSql);
             ResultSet rs = statement.executeQuery();
 
             int i = 0;
